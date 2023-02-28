@@ -1,3 +1,19 @@
+#include <iostream>
+#include <Windows.h>
+#include "view.h"
+using namespace std;
+void FixConsoleWindow() {
+	HWND consoleWindow = GetConsoleWindow();
+	LONG style = GetWindowLong(consoleWindow, GWL_STYLE);
+	style = style & ~(WS_MAXIMIZEBOX) & ~(WS_THICKFRAME);
+	SetWindowLong(consoleWindow, GWL_STYLE, style);
+}
+void GotoXY(int x, int y) {
+ 	COORD coord;
+ 	coord.X = x;
+ 	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
 void DrawBoard(int pSize) {
 for (int i = 0; i <= 44; i++)
 	{
@@ -88,10 +104,16 @@ for (int i = 0; i <= 44; i++)
     }
     GotoXY(17, 4); printf("%c", 188);
     GotoXY(34, 0); printf(" GAME CO CARO ");
-    GotoXY(25, 2); printf("NHOM 8 - KTLT - K22");
+    GotoXY(25, 2); printf("NHOM 12 - KTLT - K22");
     GotoXY(5, 2);  printf("So Quan Co");
     GotoXY(3, 3); printf("  -   |   -   ");
     GotoXY(3, 3);  printf("X");
     GotoXY(11, 3); printf("O");
     GotoXY(42, 40);
 }
+int AskContinue(){
+	GotoXY(0, _A[BOARD_SIZE - 1][BOARD_SIZE - 1].y + 4);
+	printf("Nhan 'y/n' de tiep tuc/dung: ");
+	return toupper(getch());
+}
+
