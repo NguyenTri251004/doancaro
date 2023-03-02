@@ -1,5 +1,8 @@
 #include"Funtion_C.h"
 #include "view.h"
+void FullScreen() {
+    ::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
+}
 void FixConsoleWindow() {
     HWND consoleWindow = GetConsoleWindow();
     LONG style = GetWindowLong(consoleWindow, GWL_STYLE);
