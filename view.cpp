@@ -21,7 +21,7 @@ void setColor(int k) // hàm chỉnh màu , k truyền số màu từ 1->12
     hConsoleColor = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsoleColor, k);
 }
-void DrawBoard() { //vẽ bảng
+void DrawBoard() { //vẽ bảng  TỌA ĐỘ O CỦA BẢNG LÀ (3,2)
     for (int i = 2; i <= 44; i++) //vẽ ô bên trong
     {
         for (int j = 0; j <= 24; j++)
