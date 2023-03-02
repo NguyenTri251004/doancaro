@@ -1,8 +1,5 @@
-#ifndef _view_h
-#define _view_h
-void FixConsoleWindow();
+#pragma once
+void FixConsoleWindow(); 
 void GotoXY(int x, int y);
-void DrawBoard(int pSize);
-int ProcessFinish(int pWhoWin);
-int AskContinue();
-#endif
+void setColor(int k);
+void DrawBoard();
