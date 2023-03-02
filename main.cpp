@@ -2,6 +2,9 @@
 #include"view.h"
 
 void main() {
+    
+    FullScreen();
+    setColor(1);
     FixConsoleWindow();
     DrawBoard();
     _getch();
