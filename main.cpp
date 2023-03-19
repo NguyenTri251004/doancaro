@@ -1,5 +1,6 @@
 #include"Function_C.h" //hàm cơ bản của c++ trong đây
 #include"view.h"
+#include"control.h"
 
 void main() {
     
