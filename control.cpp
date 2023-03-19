@@ -90,11 +90,11 @@ void dieukhien(Contro& contro, Contro& contro1, Xoacontro& xoacontro, Xoacontro&
         else if (a == 's' || a == 'S') ct = 2;
         else if (a == 'w' || a == 'W') ct = 3;
         else if (a == 'e' || a == 'E') ct = 4;
-        else if (a == '4') ct = 10;
-        else if (a == '6') ct = 11;
-        else if (a == '2') ct = 12;
-        else if (a == '8') ct = 13;
-        else if (a == '5') ct = 14;
+        else if (a == 75) ct = 10;
+        else if (a == 77) ct = 11;
+        else if (a == 80) ct = 12;
+        else if (a == 72) ct = 13;
+        else if (a == 13) ct = 14;
     }
     xoacontro.td = contro.td;
     xoacontro1.td = contro1.td;
