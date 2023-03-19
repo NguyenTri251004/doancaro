@@ -100,8 +100,8 @@ void dieukhien(Contro& contro, Contro& contro1, Xoacontro& xoacontro, Xoacontro&
     xoacontro1.td = contro1.td;
     if (ct == 0 && contro.td.x > 5) contro.td.x = contro.td.x - 4;       // nhan phim a
     else if (ct == 1 && contro.td.x < 71) contro.td.x = contro.td.x + 4;  //Nhan phim d
-    else if (ct == 2 && contro.td.y < 43) contro.td.y = contro.td.y + 2;   //Nhan phim S
-    else if (ct == 3 && contro.td.y > 5) contro.td.y = contro.td.y - 2;   //Nhan phim W
+    else if (ct == 2 && contro.td.y < 41) contro.td.y = contro.td.y + 2;   //Nhan phim S
+    else if (ct == 3 && contro.td.y > 4) contro.td.y = contro.td.y - 2;   //Nhan phim W
     else if (ct == 4)
     {
         int n = 0;
@@ -123,8 +123,8 @@ void dieukhien(Contro& contro, Contro& contro1, Xoacontro& xoacontro, Xoacontro&
     }  //Nhan phim E
     else if (ct == 10 && contro1.td.x > 5) contro1.td.x = contro1.td.x - 4;    // nhan phim 4
     else if (ct == 11 && contro1.td.x < 71) contro1.td.x = contro1.td.x + 4;  //Nhan phim 6
-    else if (ct == 12 && contro1.td.y < 43) contro1.td.y = contro1.td.y + 2;   //Nhan phim 2
-    else if (ct == 13 && contro1.td.y > 5) contro1.td.y = contro1.td.y - 2;   //Nhan phim 8
+    else if (ct == 12 && contro1.td.y < 41) contro1.td.y = contro1.td.y + 2;   //Nhan phim 2
+    else if (ct == 13 && contro1.td.y > 4) contro1.td.y = contro1.td.y - 2;   //Nhan phim 8
     else if (ct == 14)
     {
         int n = 0;
