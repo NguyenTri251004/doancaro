@@ -15,10 +15,10 @@ void main() {
         XO A;
         khoitao(contro, contro1);
         do {
+            Luotchoi(luotchoi, A);
             if (xoald != 0) Xoacursor(xoacontro, xoacontro1, daux, dau0); xoald = 1;
             hienthi(contro, contro1, daux, dau0, xoacontro, xoacontro1, A);
-            dieukhien(contro, contro1, xoacontro, xoacontro1, daux, dau0, A, dem, dem1, luotchoi, luuct);
-            Luotchoi(luotchoi, A);
+            dieukhien(contro, contro1, xoacontro, xoacontro1, daux, dau0, A, dem, dem1, luotchoi, luuct);  
         } while (1);
         bool validEnter = true;
 
