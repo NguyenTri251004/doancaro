@@ -153,14 +153,14 @@ void dieukhien(Contro& contro, Contro& contro1, Xoacontro& xoacontro, Xoacontro&
 }
 void Luotchoi(int luotchoi, XO A)
 {
-    GotoXY(71, 3);
+    GotoXY(150, 3);
     TextColor(14);
-    if (luotchoi > 0 && luotchoi % 2 == 1) printf("X");
-    else if (luotchoi > 0 && luotchoi % 2 == 0)
+    if ((luotchoi > 0 && luotchoi % 2 == 1)||luotchoi==0) printf("X");
+    else if (luotchoi % 2 == 0)
     {
         TextColor(12);
         printf("O");
     }
-    GotoXY(7, 3);   TextColor(14); printf("%d", A.nx);
-    GotoXY(15, 3); TextColor(14); printf("%d", A.no);
+    GotoXY(100, 3);   TextColor(14); printf("%d", A.nx);
+    GotoXY(115, 3); TextColor(14); printf("%d", A.no);
 }
