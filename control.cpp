@@ -121,10 +121,10 @@ void dieukhien(Contro& contro, Contro& contro1, Xoacontro& xoacontro, Xoacontro&
             else if (n >= 1 && luuct != ct) luotchoi--;
         }
     }  //Nhan phim E
-    else if (ct == 10 && contro1.td.x > 5) contro1.td.x = contro1.td.x - 4;    // nhan phim 4
-    else if (ct == 11 && contro1.td.x < 71) contro1.td.x = contro1.td.x + 4;  //Nhan phim 6
-    else if (ct == 12 && contro1.td.y < 41) contro1.td.y = contro1.td.y + 2;   //Nhan phim 2
-    else if (ct == 13 && contro1.td.y > 4) contro1.td.y = contro1.td.y - 2;   //Nhan phim 8
+    else if (ct == 10 && contro1.td.x > 5) contro1.td.x = contro1.td.x - 4;    // mui ten de di chuyen
+    else if (ct == 11 && contro1.td.x < 71) contro1.td.x = contro1.td.x + 4;  
+    else if (ct == 12 && contro1.td.y < 41) contro1.td.y = contro1.td.y + 2;   
+    else if (ct == 13 && contro1.td.y > 4) contro1.td.y = contro1.td.y - 2;  
     else if (ct == 14)
     {
         int n = 0;
@@ -142,7 +142,7 @@ void dieukhien(Contro& contro, Contro& contro1, Xoacontro& xoacontro, Xoacontro&
             }
             else if (n >= 1 && luuct != ct) luotchoi--;
         }
-    } //Nhan phim 5
+    } //Nhan phim enter
     if ((ct == 10 || ct == 11 || ct == 12 || ct == 13) && dau0 >= 1) dau0--;
     if ((ct == 0 || ct == 1 || ct == 2 || ct == 3) && daux >= 1) daux--;
     if (ct == 4 || ct == 14)
