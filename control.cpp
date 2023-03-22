@@ -1,4 +1,6 @@
-include"control.h"
+#include"control.h"
+#include "view.h"
+#include "Function_C.h"
 void TextColor(int x)
 {
     HANDLE mau = GetStdHandle(STD_OUTPUT_HANDLE);
