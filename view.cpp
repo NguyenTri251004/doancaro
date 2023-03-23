@@ -81,3 +81,21 @@ void DrawBoard() { //vẽ bảng  TỌA ĐỘ O CỦA BẢNG LÀ (3,2)
 
     }
 }
+//show Turn
+void ShowNumberTurn(int countX,int countO,int turn) {
+    GotoXY(100, 3);
+    if (turn == 1) {
+        TextColor(14);
+        cout << "X";
+    }
+    else if (turn == 0) {
+        TextColor(12);
+        cout << "O";
+    }
+    GotoXY(150, 3);
+    TextColor(14);
+    cout << countX;
+    GotoXY(170, 3);
+    TextColor(12);
+    cout << countO;
+}
