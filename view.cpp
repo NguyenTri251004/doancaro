@@ -1,5 +1,6 @@
 #include"Funtion_C.h"
 #include "view.h"
+using namespace std;
 void FullScreen() {
     ::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 }
