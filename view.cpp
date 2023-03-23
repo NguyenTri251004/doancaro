@@ -3,6 +3,11 @@
 void FullScreen() {
     ::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 }
+void TextColor(int x)
+{
+    HANDLE mau = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(mau, x);
+}
 void FixConsoleWindow() {
     HWND consoleWindow = GetConsoleWindow();
     LONG style = GetWindowLong(consoleWindow, GWL_STYLE);
@@ -14,12 +19,6 @@ void GotoXY(int x, int y) { //tọa độ
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-void setColor(int k) // hàm chỉnh màu , k truyền số màu từ 1->12
-{
-    HANDLE hConsoleColor;
-    hConsoleColor = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsoleColor, k);
 }
 void DrawBoard() { //vẽ bảng  TỌA ĐỘ O CỦA BẢNG LÀ (3,2)
     for (int i = 2; i <= 44; i++) //vẽ ô bên trong
