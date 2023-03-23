@@ -91,21 +91,6 @@ int print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) 
         return 0;
     }
 }
-int CommandControl(toado& s, int& turn, int& countX, int& countO) {
-    GotoXY(s.x, s.y);
-    int command = _getch();
-    if ((command == 'a' || command == 'A') && s.x > 5)
-        moveLeft(s);
-    else if ((command == 'd' || command == 'D') && s.x < 71)
-        moveRight(s);
-    else if ((command == 's' || command == 'S') && s.y < 41)
-        moveDown(s);
-    else if ((command == 'w' || command == 'W') && s.y > 4)
-        moveUp(s);
-    else if (command == 32)
-        return 1;
-    return 0;
-}
 //che do PvP
 void PvP(matrix arr[18][20],toado s) {
     int x = 0, turn = 1, countX = 0, countO = 0;
