@@ -11,6 +11,7 @@ void resetData(matrix arr[18][20]) {
             arr[i][j].z = -1; //chua danh
         }
 }
+//check ban co con trong o nao hay ko
 bool checkFullBoard(matrix arr[18][20]) {
     for (int i = 0; i < 18; i++)
         for (int j = 0; j < 20; j++)
@@ -18,7 +19,8 @@ bool checkFullBoard(matrix arr[18][20]) {
                 return false;
     return true;
 }
-int CheckThangThua(matrix arr[18][20], toado &a, int &s)
+//check win/lose/draw
+int ProcessFinish(matrix arr[18][20], toado &a, int &s)
 {
     int x = (a.x - 1) / 4 - 1;
     int y = (a.y - 1) / 2 - 1;
@@ -47,9 +49,9 @@ int CheckThangThua(matrix arr[18][20], toado &a, int &s)
         return 0;
     return -1;
 }
-//in ai win
+//in ai win/draw
 void print_Win(matrix arr[18][20], toado td, int turn) {
-    int check = CheckThangThua(arr, td, turn);
+    int check = ProcessFinish(arr, td, turn);
     if ((check == 1) && (turn == 1)) {
         GotoXY(100, 20);
         cout << "X win";
@@ -63,12 +65,13 @@ void print_Win(matrix arr[18][20], toado td, int turn) {
         cout << "Draw";
     }
 }
+//Pause khi win/draw
 int ConditionPause(matrix arr[18][20], toado td, int turn) {
-    if (CheckThangThua(arr, td, turn) == 1)
+    if (ProcessFinish(arr, td, turn) == 1)
         return 1;
     return 0;
 }
-//Dung khi Win/Draw
+//Dung in X/O tren man hinh
 int print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) {
     GotoXY(s.x, s.y);
     int x = (s.x - 1) / 4 - 1;
