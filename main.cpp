@@ -6,9 +6,10 @@ using namespace std;
 
 void main()
 {
+    toado s = {33,21};
     matrix arr[18][20];
-    DrawBoard(); //18x20 o
+    DrawBoard(); //so o ban co 18x20 
     resetData(arr);
     GotoXY(33, 21);
-    PvP(arr);
+    PvP(arr,s);
 }
