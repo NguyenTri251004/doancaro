@@ -1,168 +1,113 @@
-#include"control.h"
-#include "view.h"
-#include "Function_C.h"
-void TextColor(int x)
-{
-    HANDLE mau = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(mau, x);
+#include"Function_C.h"
+#include"view.h"
+#include "Control.h"
+using namespace std;
+toado td = { 33,21 }; //toa do khoi tao con tro tren ban co
+//khoi tao du lieu ma tran
+void resetData(int matrix[73][41]) {
+    for (int i = 0; i < 74; i++)
+        for (int j = 0; j < 42; j++)
+            matrix[i][j] = -1;
 }
-void khoitao(Contro& contro, Contro& contro1)
-{
-    contro.td.x = 32; contro.td.y = 21;
-    contro1.td.x = 40; contro1.td.y = 21;
+void moveRight(toado &a) {
+    GotoXY(a.x + 4, a.y);
+    a.x += 4;
 }
-void hienthi(Contro contro, Contro contro1, int daux, int dau0, Xoacontro xoacontro, Xoacontro xoacontro1, XO A)
-{
-    //Contro 1----------------------------------------------------------------------------------------------
-    if (daux == 1)
-    {
-        TextColor(14); GotoXY(xoacontro.td.x, xoacontro.td.y); printf(" X ");
-        GotoXY(contro.td.x, contro.td.y); TextColor(224); printf("   ");
-    }
-    else if (daux == 2)
-    {
-        TextColor(235); GotoXY(contro.td.x, contro.td.y); printf(" X ");
-    }
-    else if (daux == 0)
-    {
-        GotoXY(contro.td.x, contro.td.y); TextColor(224); printf("   ");
-    }
-    //Con tro 2----------------------------------------------------------------------------------------------------
-    if (dau0 == 1)
-    {
-        TextColor(12); GotoXY(xoacontro1.td.x, xoacontro1.td.y); printf(" O ");
-        GotoXY(contro1.td.x, contro1.td.y); TextColor(207);  printf("   ");
-    }
-    else if (dau0 == 2)
-    {
-        TextColor(207); GotoXY(contro1.td.x, contro1.td.y); printf(" O ");
-    }
-    else if (dau0 == 0)
-    {
-        GotoXY(contro1.td.x, contro1.td.y); TextColor(207);  printf("   ");
-    }
-    //Khoi phuc cac quan co------------------------------------------------
-    for (int i = 0; i < A.nx; i++)
-    {
-        GotoXY(A.vtx[i].x, A.vtx[i].y); TextColor(14);  printf(" X ");
-    }
-    for (int i = 0; i < A.no; i++)
-    {
-        GotoXY(A.vto[i].x, A.vto[i].y); TextColor(12); printf(" O ");
-    }
-
-    for (int i = 0; i < A.nx; i++)
-    {
-        if (contro.td.x == A.vtx[i].x && contro.td.y == A.vtx[i].y)
-        {
-            GotoXY(contro.td.x, contro.td.y); TextColor(233); printf(" X ");
-        }
-        if (contro1.td.x == A.vtx[i].x && contro1.td.y == A.vtx[i].y)
-        {
-            GotoXY(contro1.td.x, contro1.td.y); TextColor(193);  printf(" X ");
-        }
-    }
-    for (int i = 0; i < A.no; i++)
-    {
-        if (contro.td.x == A.vto[i].x && contro.td.y == A.vto[i].y)
-        {
-            GotoXY(contro.td.x, contro.td.y); TextColor(233);  printf(" O ");
-        }
-        if (contro1.td.x == A.vto[i].x && contro1.td.y == A.vto[i].y)
-        {
-            GotoXY(contro1.td.x, contro1.td.y); TextColor(193); printf(" O ");
-        }
-    }
+void moveLeft(toado &a) {
+    GotoXY(a.x-4, a.y);
+    a.x -= 4;
 }
-void Xoacursor(Xoacontro xoacontro, Xoacontro xoacontro1, int daux, int dau0)
-{
-    GotoXY(xoacontro.td.x, xoacontro.td.y);
-    if (daux == 0) printf("   ");
-    GotoXY(xoacontro1.td.x, xoacontro1.td.y);
-    if (dau0 == 0) printf("   ");
+void moveDown(toado &a) {
+    GotoXY(a.x, a.y+2); 
+    a.y += 2;
 }
-void dieukhien(Contro& contro, Contro& contro1, Xoacontro& xoacontro, Xoacontro& xoacontro1, int& daux, int& dau0, XO& A, int& dem, int& dem1, int& luotchoi, int& luuct)
-{
-    int ct = 5;
-    //  if(kbhit())
-    {
-        int a = _getch();
-        if (a == 'a' || a == 'A') ct = 0;
-        else if (a == 'd' || a == 'D') ct = 1;
-        else if (a == 's' || a == 'S') ct = 2;
-        else if (a == 'w' || a == 'W') ct = 3;
-        else if (a == 'e' || a == 'E') ct = 4;
-        else if (a == 75) ct = 10;
-        else if (a == 77) ct = 11;
-        else if (a == 80) ct = 12;
-        else if (a == 72) ct = 13;
-        else if (a == 13) ct = 14;
-    }
-    xoacontro.td = contro.td;
-    xoacontro1.td = contro1.td;
-    if (ct == 0 && contro.td.x > 5) contro.td.x = contro.td.x - 4;       // nhan phim a
-    else if (ct == 1 && contro.td.x < 71) contro.td.x = contro.td.x + 4;  //Nhan phim d
-    else if (ct == 2 && contro.td.y < 41) contro.td.y = contro.td.y + 2;   //Nhan phim S
-    else if (ct == 3 && contro.td.y > 4) contro.td.y = contro.td.y - 2;   //Nhan phim W
-    else if (ct == 4)
-    {
-        int n = 0;
-        if (luotchoi == 0 || luotchoi % 2 == 1)
-        {
-            for (int i = 0; i < A.nx; i++) if (contro.td.x == A.vtx[i].x && contro.td.y == A.vtx[i].y) n++;
-            for (int i = 0; i < A.no; i++) if (contro.td.x == A.vto[i].x && contro.td.y == A.vto[i].y) n++;
-            if (luotchoi == 0) luotchoi = 1;
-            if (n == 0)
-            {
-                if (luuct == ct) luotchoi++;
-                daux = 2;
-                A.vtx[dem] = contro.td;
-                dem++;
-                A.nx++;
-            }
-            else if (n >= 1 && luuct != ct) luotchoi--;
-        }
-    }  //Nhan phim E
-    else if (ct == 10 && contro1.td.x > 5) contro1.td.x = contro1.td.x - 4;    // mui ten de di chuyen
-    else if (ct == 11 && contro1.td.x < 71) contro1.td.x = contro1.td.x + 4;  
-    else if (ct == 12 && contro1.td.y < 41) contro1.td.y = contro1.td.y + 2;   
-    else if (ct == 13 && contro1.td.y > 4) contro1.td.y = contro1.td.y - 2;  
-    else if (ct == 14)
-    {
-        int n = 0;
-        if (luotchoi == 0 || luotchoi % 2 == 0)
-        {
-            for (int i = 0; i < A.no; i++) if (contro1.td.x == A.vto[i].x && contro1.td.y == A.vto[i].y) n++;
-            for (int i = 0; i < A.nx; i++) if (contro1.td.x == A.vtx[i].x && contro1.td.y == A.vtx[i].y) n++;
-            if (n == 0)
-            {
-                if (ct == luuct) luotchoi++;
-                dau0 = 2;
-                A.vto[dem1] = contro1.td;
-                dem1++;
-                A.no++;
-            }
-            else if (n >= 1 && luuct != ct) luotchoi--;
-        }
-    } //Nhan phim enter
-    if ((ct == 10 || ct == 11 || ct == 12 || ct == 13) && dau0 >= 1) dau0--;
-    if ((ct == 0 || ct == 1 || ct == 2 || ct == 3) && daux >= 1) daux--;
-    if (ct == 4 || ct == 14)
-    {
-        if (ct != luuct) luotchoi++;
-        luuct = ct;
-    }
+void moveUp(toado &a) {
+    GotoXY(a.x, a.y-2); 
+    a.y -= 2;
 }
-void Luotchoi(int luotchoi, XO A)
-{
-    GotoXY(150, 3);
-    TextColor(14);
-    if ((luotchoi > 0 && luotchoi % 2 == 1)||luotchoi==0) printf("X");
-    else if (luotchoi % 2 == 0)
-    {
+//Danh X O
+void print_X_0(int matrix[73][41], toado s, int& turn, int& countX, int& countO) {
+    GotoXY(s.x, s.y);
+    if ((turn == 1) && (matrix[s.x][s.y] == -1) && (matrix[s.x][s.y] != 0)) {
+        matrix[s.x][s.y] = 1;
+        TextColor(14);
+        cout << "X";
+        turn = 0;
+        countX += 1;
+    }
+    else if ((turn == 0) && (matrix[s.x][s.y] == -1) && (matrix[s.x][s.y] != 1)) {
+        matrix[s.x][s.y] = 0;
         TextColor(12);
-        printf("O");
+        cout << "O";
+        turn = 1;
+        countO += 1;
     }
-    GotoXY(100, 3);   TextColor(14); printf("%d", A.nx);
-    GotoXY(115, 3); TextColor(14); printf("%d", A.no);
+}
+//Dieu kien + danh 
+void CommandControl(int matrix[73][41], int& turn, int& countX, int& countO) {
+    GotoXY(td.x, td.y);
+    int command = _getch();
+    if ((command == 'a' || command == 'A') && td.x > 5)
+        moveLeft(td);
+    else if ((command == 'd' || command == 'D') && td.x < 71)
+        moveRight(td);
+    else if ((command == 's' || command == 'S') && td.y < 41)
+        moveDown(td);
+    else if ((command == 'w' || command == 'W') && td.y > 4)
+        moveUp(td);
+    else if (command == 32)
+        print_X_0(matrix, td, turn, countX, countO);
+}
+int CheckThangThua(int A[73][41])
+{
+    int x = 1, o = 0;
+    int count = 0;
+    // x thang tra ve 1
+    for (int i = 0; i < 5; i++) //check hang ngang 
+    {
+        if (A[td.x - 16 + 4 * i][td.y] == x)
+            count += 1;
+        if (count == 5)
+            return 1;  
+    }
+    count = 0;
+    for (int i = 0; i < 5; i++) // check hang doc 
+    {
+        if (A[td.x][td.y - 8 + 2 * i] == x)
+            count += 1;
+        if (count == 5)
+            return 1;
+    }
+    count = 0;
+    for (int i = 0; i < 5; i++) // check duong 4h
+    {
+        if (A[td.x - 16 + 4 * i][td.y - 8 + 2 * i] == x)
+            count += 1;
+        if (count == 5)
+            return 1;
+    }
+    count = 0;
+    for (int i = 0; i < 5; i++) // check duong cheo 7h
+    {
+        if (A[td.x + 16 - 4 * i][td.y - 8 + 2 * i] == x)
+            count += 1;
+        if (count == 5)
+            return 1;
+    }
+    count = 0;
+    for (int i = 0; i < 5; i++) // check duong cheo 10h
+    {
+        if (A[td.x + 16 - 4 * i][td.y + 8 - 2 * i] == x)
+            count += 1;
+        if (count == 5)
+            return 1;
+    }
+    count = 0;
+    for (int i = 0; i < 5; i++) // check duong cheo 1h
+    {
+        if (A[td.x - 16 + 4 * i][td.y + 8 - 2 * i] == x)
+            count += 1;
+        if (count == 5)
+            return 1;
+    }
 }
