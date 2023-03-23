@@ -1,9 +1,6 @@
 #include "Game.h"
-#include"Function_C.h"
-#include"Control.h"
-#include"view.h"
+
 using namespace std;
-toado td = { 33,21 };
 //khoi tao du lieu
 void resetData(matrix arr[18][20]) {
     for (int i = 0; i < 18; i++)
@@ -21,7 +18,7 @@ bool checkFullBoard(matrix arr[18][20]) {
                 return false;
     return true;
 }
-int CheckThangThua(matrix arr[18][20], toado a, int s)
+int CheckThangThua(matrix arr[18][20], toado &a, int &s)
 {
     int x = (a.x - 1) / 4 - 1;
     int y = (a.y - 1) / 2 - 1;
@@ -51,32 +48,28 @@ int CheckThangThua(matrix arr[18][20], toado a, int s)
     return -1;
 }
 //in ai win
-int print_Win(matrix arr[18][20], toado td, int turn) {
+void print_Win(matrix arr[18][20], toado td, int turn) {
     int check = CheckThangThua(arr, td, turn);
     if ((check == 1) && (turn == 1)) {
         GotoXY(100, 20);
         cout << "X win";
-        return 1;
     }
     else if ((check == 1) && (turn == 0)) {
         GotoXY(100, 20);
         cout << "O win";
-        return 1;
     }
     else if (check == 0) {
         GotoXY(100, 20);
         cout << "Draw";
-        return 1;
     }
+}
+int ConditionPause(matrix arr[18][20], toado td, int turn) {
+    if (CheckThangThua(arr, td, turn) == 1)
+        return 1;
     return 0;
 }
 //Dung khi Win/Draw
-int ConditionPause(matrix arr[18][20], int turn) {
-    if (print_Win(arr, td, turn) == 1)
-        return 1;
-    return 0;
-}
-void print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) {
+int print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) {
     GotoXY(s.x, s.y);
     int x = (s.x - 1) / 4 - 1;
     int y = (s.y - 1) / 2 - 1;
@@ -85,37 +78,52 @@ void print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO)
         TextColor(14);
         cout << "X";
         countX += 1;
-        print_Win(arr, s, turn);
-        turn = 0;
+        return 1;
     }
     else if ((turn == 0) && (arr[x][y].z == -1) && (arr[x][y].z != 1)) {
         arr[x][y].z = 0;
         TextColor(12);
         cout << "O";
         countO += 1;
-        print_Win(arr, s, turn);
-        turn = 1;
+        return 0;
     }
 }
-void CommandControl(matrix arr[18][20], int& turn, int& countX, int& countO) {
-    GotoXY(td.x, td.y);
+int CommandControl(toado& s, int& turn, int& countX, int& countO) {
+    GotoXY(s.x, s.y);
     int command = _getch();
-    if ((command == 'a' || command == 'A') && td.x > 5)
-        moveLeft(td);
-    else if ((command == 'd' || command == 'D') && td.x < 71)
-        moveRight(td);
-    else if ((command == 's' || command == 'S') && td.y < 41)
-        moveDown(td);
-    else if ((command == 'w' || command == 'W') && td.y > 4)
-        moveUp(td);
+    if ((command == 'a' || command == 'A') && s.x > 5)
+        moveLeft(s);
+    else if ((command == 'd' || command == 'D') && s.x < 71)
+        moveRight(s);
+    else if ((command == 's' || command == 'S') && s.y < 41)
+        moveDown(s);
+    else if ((command == 'w' || command == 'W') && s.y > 4)
+        moveUp(s);
     else if (command == 32)
-        print_X_0(arr, td, turn, countX, countO);
+        return 1;
+    return 0;
 }
 //che do PvP
-void PvP(matrix arr[18][20]) {
-    int turn = 1, countX = 0, countO = 0;
-    do {
+void PvP(matrix arr[18][20],toado s) {
+    int x = 0, turn = 1, countX = 0, countO = 0;
+    while (1)
+    {
         ShowNumberTurn(countX, countO, turn);
-        CommandControl(arr, turn, countX, countO);
-    } while (ConditionPause(arr, turn) != 1);
+        int command = CommandControl(s, turn, countX, countO);
+        if (command == 0)
+            continue;
+        else if (command == 1)
+        {
+            int x = print_X_0(arr, s, turn, countX, countO);
+            if (ConditionPause(arr, s, turn) == 1) {
+                print_Win(arr, s, turn);
+                ShowNumberTurn(countX, countO, turn); //goi lai de update so luot
+                break;
+            }
+            if (x == 1)
+                turn = 0;
+            else if (x == 0)
+                turn = 1;
+        }
+    }
 }
