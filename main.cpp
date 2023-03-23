@@ -1,30 +1,29 @@
-#include"Function_C.h" //hàm cơ bản của c++ trong đây
+#include"Function_C.h"
+#include"Control.h"
 #include"view.h"
-#include"control.h"
+using namespace std;
 
-void main() {
-    
-    FullScreen();
-    setColor(1);
-    FixConsoleWindow();
+void main()
+{
+    int matrix[73][41]; //-1 chua danh , 1 la cua X, 0 la cua O
     DrawBoard();
-     do {
-        int daux = 0, dau0 = 0, dem = 0, dem1 = 0, luotchoi = 0, luuct = 0, xoald = 0;
-        Xoacontro xoacontro{}, xoacontro1{};
-        Contro contro, contro1;
-        XO A;
-        khoitao(contro, contro1);
-        do {
-            Luotchoi(luotchoi, A);
-            if (xoald != 0) Xoacursor(xoacontro, xoacontro1, daux, dau0); xoald = 1;
-            hienthi(contro, contro1, daux, dau0, xoacontro, xoacontro1, A);
-            dieukhien(contro, contro1, xoacontro, xoacontro1, daux, dau0, A, dem, dem1, luotchoi, luuct);  
-        } while (1);
-        bool validEnter = true;
-
-    }while(1);
-    GotoXY(0, 0);
-    _getch();
+    resetData(matrix);
+    GotoXY(33, 21);
+    int turn = 1, countX = 0, countO = 0;
+    do {
+        ShowNumberTurn(countX, countO, turn);
+        CommandControl(matrix, turn, countX, countO);
+        int check = CheckThangThua(matrix);
+        if (check == 1) {
+            GotoXY(100, 20);
+            cout << "X win";
+        }
+        else if (check == -1) {
+            GotoXY(100, 20);
+            cout << "O win";
+        }
+            
+    } while (1);
 }
    
 
