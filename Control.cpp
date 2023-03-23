@@ -58,6 +58,7 @@ int CheckThangThua(int A[73][41], int x)
     }
     if (checkFullBoard(A) == true)
         return 0;
+    return -1;
 }
 void print_Win(int matrix[73][41], int turn) {
     int check = CheckThangThua(matrix, turn);
