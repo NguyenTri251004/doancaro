@@ -60,52 +60,28 @@ void CommandControl(int matrix[73][41], int& turn, int& countX, int& countO) {
 }
 int CheckThangThua(int A[73][41])
 {
-    int x = 1, o = 0;
-    int count = 0;
+    int x = 1;
     // x thang tra ve 1
-    for (int i = 0; i < 5; i++) //check hang ngang x thang
+    for (int i = 0; i < 5; i++) //check hang ngang 
     {
         if (A[td.x - 16 + 4 * i][td.y] == x && A[td.x - 12 + 4 * i][td.y] == x && A[td.x - 8 + 4 * i][td.y] == x && A[td.x - 4 + 4 * i][td.y] == x && A[td.x + 4 * i][td.y] == x)
-            if (A[td.x - 20 + 4 * i][td.y] != o || A[td.x + 4 + 4 * i][td.y] != o) return 1;
-    }
-    for (int i = 0; i < 5; i++) // check hang doc x thang
-    {
-        if (A[td.x][td.y - 8 + 2 * i] == x && A[td.x][td.y - 6 + 2 * i] == x && A[td.x][td.y - 4 + 2 * i] == x && A[td.x][td.y - 2 + 2 * i] == x && A[td.x][td.y + 2 * i] == x)
-            if (A[td.x][td.y - 10 + 2 * i] != o || A[td.x][td.y + 2 + 2 * i] != o) return 1;
-    }
-    for (int i = 0; i < 5; i++) // check duong cheo DB-TN x thang
-    {
-        if (A[td.x - 16 + 4 * i][td.y + 8 - 2 * i] == x && A[td.x - 12 + 4 * i][td.y + 6 - 2 * i] == x && A[td.x - 8 + 4 * i][td.y + 4 - 2 * i] == x && A[td.x - 4 + 4 * i][td.y + 2 - 2 * i] == x && A[td.x + 4 * i][td.y - 2 * i] == x)
-            if (A[td.x - 20 + 4 * i][td.y - 10 + 2 * i] != o || A[td.x + 4 + 4 * i][td.y + 2 + 2 * i] != o) return 1;
-    }
-    for (int i = 0; i < 5; i++) // check duong cheo TB-DN x thang
-    {
-        if (A[td.x + 16 + 4 * i][td.y - 8 + 2 * i] == x && A[td.x + 12 + 4 * i][td.y - 6 + 2 * i] == x && A[td.x + 8 + 4 * i][td.y - 4 + 2 * i] == x && A[td.x + 4 + 4 * i][td.y - 2 + 2 * i] == x && A[td.x + 4 * i][td.y + 2 * i] == x)
-            if (A[td.x + 20 + 4 * i][td.y - 10 + 2 * i] != o || A[td.x - 4 + 4 * i][td.y + 2 + 2 * i] != o) return 1;
-    }
-    // o thang tra ve -1
-    for (int i = 0; i < 5; i++) //check hang ngang
-    {
-        if (A[td.x - 16 + 4 * i][td.y] == o && A[td.x - 12 + 4 * i][td.y] == o && A[td.x - 8 + 4 * i][td.y] == o && A[td.x - 4 + 4 * i][td.y] == o && A[td.x + 4 * i][td.y] == o)
-            if (A[td.x - 20 + 4 * i][td.y] != x || A[td.x + 4 + 4 * i][td.y] != x) return -1;
+            return 1;
     }
     for (int i = 0; i < 5; i++) // check hang doc 
     {
-        if (A[td.x][td.y - 8 + 2 * i] == o && A[td.x][td.y - 6 + 2 * i] == o && A[td.x][td.y - 4 + 2 * i] == o && A[td.x][td.y - 2 + 2 * i] == o && A[td.x][td.y + 2 * i] == o)
-            if (A[td.x][td.y - 10 + 2 * i] != x || A[td.x][td.y + 2 + 2 * i] != x) return -1;
+        if (A[td.x][td.y - 8 + 2 * i] == x && A[td.x][td.y - 6 + 2 * i] == x && A[td.x][td.y - 4 + 2 * i] == x && A[td.x][td.y - 2 + 2 * i] == x && A[td.x][td.y + 2 * i] == x)
+            return 1;
     }
-    for (int i = 0; i < 5; i++) // check duong cheo DB-TN
+    for (int i = 0; i < 5; i++) // check duong cheo 
     {
-        if (A[td.x - 16 + 4 * i][td.y - 8 + 2 * i] == o && A[td.x - 12 + 4 * i][td.y - 6 + 2 * i] == o && A[td.x - 8 + 4 * i][td.y - 4 + 2 * i] == o && A[td.x - 4 + 4 * i][td.y - 2 + 2 * i] == o && A[td.x + 4 * i][td.y + 2 * i] == o)
-            if (A[td.x - 20 + 4 * i][td.y - 10 + 2 * i] != x || A[td.x + 4 + 4 * i][td.y + 2 + 2 * i] != x) return -1;
+        if ((A[td.x - 16 + 4 * i][td.y - 8 + 2 * i] == x) && (A[td.x - 12 + 4 * i][td.y - 6 + 2 * i] == x) && (A[td.x - 8 + 4 * i][td.y - 4 + 2 * i] == x) && (A[td.x - 4 + 4 * i][td.y - 2 + 2 * i] == x) && (A[td.x + 4 * i][td.y + 2 * i] == x))
+            return 1;
     }
-    for (int i = 0; i < 5; i++) // check duong cheo TB-DN 
+    for (int i = 0; i < 5; i++) // check duong cheo DB x thang
     {
-        if (A[td.x + 16 + 4 * i][td.y - 8 + 2 * i] == o && A[td.x + 12 + 4 * i][td.y - 6 + 2 * i] == o && A[td.x + 8 + 4 * i][td.y - 4 + 2 * i] == o && A[td.x + 4 + 4 * i][td.y - 2 + 2 * i] == o && A[td.x + 4 * i][td.y + 2 * i] == o)
-            if (A[td.x + 20 + 4 * i][td.y - 10 + 2 * i] != x || A[td.x - 4 + 4 * i][td.y + 2 + 2 * i] != x) return -1;
+        if ((A[td.x + 16 - 4 * i][td.y - 8 + 2 * i] == x)&& (A[td.x + 12 - 4 * i][td.y - 6 + 2 * i] == x)&& (A[td.x + 8 - 4 * i][td.y - 4 + 2 * i] == x)&& (A[td.x + 4 - 4 * i][td.y - 2 + 2 * i] == x)&& (A[td.x - 4 * i][td.y + 2 * i] == x))
+            return 1;
     }
-    // hoa tra ve 0
-    return 0;
 }
 //41 //73
 //20 x 18
