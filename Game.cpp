@@ -1,5 +1,4 @@
 #include "Game.h"
-
 using namespace std;
 //khoi tao du lieu
 void resetData(matrix arr[18][20]) {
@@ -78,14 +77,14 @@ int print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) 
     int y = (s.y - 1) / 2 - 1;
     if ((turn == 1) && (arr[x][y].z == -1) && (arr[x][y].z != 0)) {
         arr[x][y].z = 1;
-        TextColor(14);
+        setColor(10,15);
         cout << "X";
         countX += 1;
         return 1;
     }
     else if ((turn == 0) && (arr[x][y].z == -1) && (arr[x][y].z != 1)) {
         arr[x][y].z = 0;
-        TextColor(12);
+        setColor(12,15);
         cout << "O";
         countO += 1;
         return 0;
@@ -97,7 +96,7 @@ void PvP(matrix arr[18][20],toado s) {
     while (1)
     {
         ShowNumberTurn(countX, countO, turn);
-        int command = CommandControl(s, turn, countX, countO);
+        int command = CommandControl(s);
         if (command == 0)
             continue;
         else if (command == 1)
@@ -114,4 +113,12 @@ void PvP(matrix arr[18][20],toado s) {
                 turn = 1;
         }
     }
+}
+//ham goi cho menu PvP
+void PlayGame_PvP() {
+    matrix arr[18][20];
+    toado s = { 33,21 };
+    DrawBoard();
+    resetData(arr);
+    PvP(arr, s);
 }
