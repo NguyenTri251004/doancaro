@@ -1,13 +1,16 @@
-#include"Funtion_C.h"
+#include"Function_C.h"
 #include "view.h"
 using namespace std;
+void HideCursor() {
+    CONSOLE_CURSOR_INFO cursor_info = { 1, 0 };
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
+}
 void FullScreen() {
     ::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 }
-void TextColor(int x)
-{
-    HANDLE mau = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(mau, x);
+void setColor(int textCol, int bgCol) {
+    HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hStdOut, (textCol + (bgCol * 16)));
 }
 void FixConsoleWindow() {
     HWND consoleWindow = GetConsoleWindow();
@@ -21,9 +24,18 @@ void GotoXY(int x, int y) { //tọa độ
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-void DrawBoard() { //vẽ bảng  TỌA ĐỘ O CỦA BẢNG LÀ (3,2)
+void SetColor(int backgound_color, int text_color)
+{
+    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    int color_code = backgound_color * 16 + text_color;
+    SetConsoleTextAttribute(hStdout, color_code);
+}
+void DrawBoard() { //vẽ bảng
+    setColor(3, 15);
     for (int i = 2; i <= 44; i++) //vẽ ô bên trong
     {
+        
         for (int j = 0; j <= 24; j++)
         {
             if (i < 4) printf(" ");
@@ -67,35 +79,82 @@ void DrawBoard() { //vẽ bảng  TỌA ĐỘ O CỦA BẢNG LÀ (3,2)
                 printf("%c", 207);
                 x += 4;
             }
-        for (int i = 5; i < 43; i++)
+        for (int i = 4; i < 43; i++)
             if (i % 2 == 0 && i != 42) {
                 GotoXY(3, i);
                 printf("%c", 199);
             }
-        for (int i = 5; i < 43; i++)
+        for (int i = 4; i < 43; i++)
             if (i % 2 == 0 && i != 42) {
                 GotoXY(75, i);
                 printf("%c", 182);
             }
-
-
     }
 }
-//show Turn
-void ShowNumberTurn(int countX,int countO,int turn) {
+//Hien thi luot danh
+void ShowNumberTurn(int countX,int countO,int &turn) {
     GotoXY(100, 3);
     if (turn == 1) {
-        TextColor(14);
+        setColor(3, 15);
         cout << "X";
     }
     else if (turn == 0) {
-        TextColor(12);
+        setColor(12, 15);
         cout << "O";
     }
     GotoXY(150, 3);
-    TextColor(14);
+    setColor(3,15);
     cout << countX;
     GotoXY(170, 3);
-    TextColor(12);
+    setColor(12,15);
     cout << countO;
+}
+void Khung()
+{
+    // KHUNG NGOAI
+    setColor(11, 15);
+    for (int i = 0; i < 209; i++)
+    {
+        GotoXY(1 + i, 0); printf("%c", 220);
+    }
+    for (int i = 0; i < 209; i++)
+    {
+        GotoXY(1 + i, 46); printf("%c", 205);
+    }
+    for (int j = 0; j < 45; j++)
+    {
+        GotoXY(0, j + 1); printf("%c", 186);
+    }
+    for (int j = 0; j < 45; j++)
+    {
+        GotoXY(209, j + 1); printf("%c", 186);
+    }
+    // 4 GOC
+    GotoXY(0, 0); printf("%c", 201);
+    GotoXY(0, 46); printf("%c", 200);
+    GotoXY(209, 0); printf("%c", 187);//  209
+    GotoXY(209, 46); printf("%c", 188);//  209
+    // CHU Ten do an
+    GotoXY(98, 0); SetColor(15,1); cout<<" DO AN CO CARO ";
+    //Vien quanh ten nhom
+    setColor(2,15);
+    for (int i = 0; i < 55; i++)
+    {
+        GotoXY(77 + i, 42); printf("%c", 205);
+    }
+    for (int i = 0; i < 55; i++)
+    {
+        GotoXY(77 + i, 44); printf("%c", 205);
+    }
+    GotoXY(98, 43); printf("---NHOM 12---");
+
+    // Chu co caro
+    setColor(2,15);
+    GotoXY(67, 10); printf("  $$$$$$      $$$$$$$         $$$$$$       $$$$$     $$$$$$$$$     $$$$$$$\n"); Sleep(40);
+    GotoXY(67, 11); printf("$$$    $$$  $$$     $$$     $$$    $$$    $$$ $$$    $$$    $$$  $$$     $$$\n"); Sleep(40); setColor(3,15);
+    GotoXY(67, 12); printf("$$$         $$$     $$$     $$$          $$$   $$$   $$$   $$$   $$$     $$$\n"); Sleep(40);
+    GotoXY(67, 13); printf("$$$         $$$     $$$     $$$         $$$$$$$$$$$  $$$$$$$$    $$$     $$$\n"); Sleep(40); setColor(4,15);
+    GotoXY(67, 14); printf("$$$    $$$  $$$     $$$     $$$    $$$  $$$     $$$  $$$   $$$   $$$     $$$\n"); Sleep(40);
+    GotoXY(67, 15); printf("  $$$$$$      $$$$$$$         $$$$$$    $$$     $$$  $$$    $$$    $$$$$$$  \n");
+
 }
