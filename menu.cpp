@@ -2,138 +2,11 @@
 #include"control.h"
 #include "view.h"
 #include "Function_C.h"
-
-void playgame(int& thoat)
+#include"Game.h"
+using namespace std;
+void Help(int& choice)
 {
-    khungplay();
-    TextColor(14);
-    TextColor(202);
-    GotoXY(98, 25); printf("%c PLAY GAME  ", 175);
-    TextColor(14);
-    GotoXY(98, 26); printf("HELP");
-    GotoXY(98, 27); printf("ABOUT");
-    GotoXY(98, 28); printf("EXIT");
-    int chon = 0;
-    int toado = 25;
-    //Vien quanh bang dieu khien
-    TextColor(11);
-    for (int i = 0; i < 45; i++)
-    {
-        GotoXY(82 + i, 21); printf("%c", 205);
-    }
-    for (int i = 0; i < 45; i++)
-    {
-        GotoXY(82 + i, 31); printf("%c", 205);
-    }
-
-    do {
-        char a = _getch();
-        if (a == 80 || a == 's' || a == 'S' || a == '2') chon = 1;
-        else if (a == 72 || a == 'w' || a == 'W' || a == '8') chon = 2;
-        else if (a == 13 || a == 'e' || a == 'e' || a == '5') chon = 3;
-        else chon = 0;
-        if (chon == 1 && toado < 28) toado++;
-        else if (chon == 2 && toado > 25) toado--;
-        if (toado == 25)
-        {
-            TextColor(202);
-            GotoXY(98, 25); printf("%c PLAY GAME  ", 175);
-            TextColor(14);
-            GotoXY(98, 26); printf("HELP         ");
-            GotoXY(98, 27); printf("ABOUT        ");
-            GotoXY(98, 28); printf("EXIT         ");
-            TextColor(0);
-        }
-        if (toado == 26)
-        {
-            TextColor(14);
-            GotoXY(98, 25); printf("PLAY GAME    ");
-            TextColor(202);
-            GotoXY(98, 26); printf("%c HELP       ", 175);
-            TextColor(14);
-            GotoXY(98, 27); printf("ABOUT        ");
-            GotoXY(98, 28); printf("EXIT         ");
-            TextColor(0);
-        }
-        if (toado == 27)
-        {
-            TextColor(14);
-            GotoXY(98, 25); printf("PLAY GAME  ", 175);
-            GotoXY(98, 26); printf("HELP       ");
-            TextColor(202);
-            GotoXY(98, 27); printf("%c ABOUT      ", 175);
-            TextColor(14);
-            GotoXY(98, 28); printf("EXIT       ");
-            TextColor(0);
-        }
-        if (toado == 28)
-        {
-            TextColor(14);
-            GotoXY(98, 25); printf("PLAY GAME    ", 175);
-            GotoXY(98, 26); printf("HELP         ");
-            GotoXY(98, 27); printf("ABOUT        ");
-            TextColor(202);
-            GotoXY(98, 28); printf("%c EXIT       ", 175);
-        }
-    } while (chon != 3);
-    system("cls");
-    if (toado == 26) help(thoat);
-    else if (toado == 27) about(thoat);
-    else if (toado == 28) thoat = 1;
-}
-
-void khungplay()
-{
-    // KHUNG NGOAI
-    TextColor(12);
-    for (int i = 0; i < 209; i++)
-    {
-        GotoXY(1 + i, 0); printf("%c", 220);
-    }
-    for (int i = 0; i < 209; i++)
-    {
-        GotoXY(1 + i, 46); printf("%c", 205);
-    }
-    for (int j = 0; j < 45; j++)
-    {
-        GotoXY(0, j + 1); printf("%c", 186);
-    }
-    for (int j = 0; j < 45; j++)
-    {
-        GotoXY(209, j + 1); printf("%c", 186);
-    }
-    // 4 GOC
-    GotoXY(0, 0); printf("%c", 201);
-    GotoXY(0, 46); printf("%c", 200);
-    GotoXY(209, 0); printf("%c", 187);//  209
-    GotoXY(209, 46); printf("%c", 188);//  209
-    // CHU Ten do an
-    GotoXY(98, 0); TextColor(160); printf(" DO AN CO CARO ");
-    //Vien quanh ten nhom
-    TextColor(2);
-    for (int i = 0; i < 55; i++)
-    {
-        GotoXY(77 + i, 42); printf("%c", 205);
-    }
-    for (int i = 0; i < 55; i++)
-    {
-        GotoXY(77 + i, 44); printf("%c", 205);
-    }
-    GotoXY(98, 43); printf("---NHOM 12---");
-   
-    // Chu co caro
-    TextColor(2);
-    GotoXY(67, 10); printf("  $$$$$$      $$$$$$$         $$$$$$       $$$$$     $$$$$$$$$     $$$$$$$\n"); Sleep(40);
-    GotoXY(67, 11); printf("$$$    $$$  $$$     $$$     $$$    $$$    $$$ $$$    $$$    $$$  $$$     $$$\n"); Sleep(40); TextColor(3);
-    GotoXY(67, 12); printf("$$$         $$$     $$$     $$$          $$$   $$$   $$$   $$$   $$$     $$$\n"); Sleep(40);
-    GotoXY(67, 13); printf("$$$         $$$     $$$     $$$         $$$$$$$$$$$  $$$$$$$$    $$$     $$$\n"); Sleep(40); TextColor(4);
-    GotoXY(67, 14); printf("$$$    $$$  $$$     $$$     $$$    $$$  $$$     $$$  $$$   $$$   $$$     $$$\n"); Sleep(40);
-    GotoXY(67, 15); printf("  $$$$$$      $$$$$$$         $$$$$$    $$$     $$$  $$$    $$$    $$$$$$$  \n");
-}
-// Trang HELP
-void help(int& thoat)
-{
-    khungplay();
+    Khung();
     for (int i = 0; i < 45; i++)
     {
         GotoXY(18 + i, 11); printf(" ");
@@ -142,32 +15,31 @@ void help(int& thoat)
     {
         GotoXY(18 + i, 21); printf(" ");
     }
-    GotoXY(98, 25);  TextColor(66); printf("    HELP    ");
-    GotoXY(100, 28); TextColor(10); printf("DIEU KHIEN");
-    TextColor(15);
-    GotoXY(86, 30);  printf("-NGUOI CHOI 1-");    GotoXY(110, 30);  printf("-NGUOI CHOI 2-"); TextColor(11);
+    GotoXY(94, 25);  setColor(3, 15); printf("--------HELP--------");
+    GotoXY(99, 28); setColor(10, 15); printf("DIEU KHIEN");
+    setColor(4, 15);
+    GotoXY(86, 30);  printf("-NGUOI CHOI 1-");    GotoXY(110, 30);  printf("-NGUOI CHOI 2-"); setColor(1, 15);
     GotoXY(86, 32); printf("A: Sang Trai");     GotoXY(110, 32); printf("4: Sang Trai");
     GotoXY(86, 33); printf("D: Sang Phai");     GotoXY(110, 33); printf("6: Sang Phai");
     GotoXY(86, 34); printf("S: Len Tren");      GotoXY(110, 34); printf("8: Len Tren");
     GotoXY(86, 35); printf("W: Xuong Duoi");    GotoXY(110, 35); printf("2: Xuong Duoi");
-    GotoXY(86, 36); printf("E: OK");            GotoXY(110, 36); printf("5: OK");
+    GotoXY(86, 36); printf("Enter: OK");            GotoXY(110, 36); printf("5: OK");
 
-    GotoXY(100, 40); TextColor(47); printf("  EXIT  ");
+    GotoXY(93, 40); setColor(47, 15); printf("  Press Enter to EXIT  ");
     //GotoXY(41, 40);
-    TextColor(0);
+    setColor(0, 15);
     char a;
     do
     {
         a = _getch();
-    } while (a != 13 && a != 'e' && a != 'E' && a != '5' && a != 8);
+    } while (a!=13);
     system("cls");
     fflush(stdin);
-    playgame(thoat);
+    Menu(choice);
 }
-// Trang about
-void about(int& thoat)
+void About(int& choice)
 {
-    khungplay();
+    Khung();
     for (int i = 0; i < 45; i++)
     {
         GotoXY(18 + i, 11); printf(" ");
@@ -176,37 +48,216 @@ void about(int& thoat)
     {
         GotoXY(18 + i, 21); printf(" ");
     }
-    GotoXY(98, 25);  TextColor(66);  printf("    ABOUT   ");
-    GotoXY(91, 28); TextColor(12); printf("DO AN CUOI KI I - GAME CO CARO");
-    GotoXY(95, 29); TextColor(12); printf("----- NHOM 12 -----");      GotoXY(34, 17);
+    GotoXY(94, 25);  setColor(3,15);  printf("--------ABOUT--------");
+    GotoXY(91, 28); setColor(12,15); printf("DO AN CUOI KI I - GAME CO CARO");
+    GotoXY(95, 29); setColor(12,15); printf("----- NHOM 12 -----");      GotoXY(34, 17);
 
-    GotoXY(87, 31); TextColor(15); printf("- Ho va ten -");          GotoXY(115, 31); TextColor(15); printf("- MSSV -");
-    GotoXY(87, 32); TextColor(11); printf("Pham Van Minh");          GotoXY(115, 32); TextColor(11); printf("22127272");
-    GotoXY(87, 33); TextColor(11); printf("Truong Nhat Huy");        GotoXY(115, 33); TextColor(11); printf("22127168");
-    GotoXY(87, 34); TextColor(11); printf("Nguyen The Quan");        GotoXY(115, 34); TextColor(11); printf("22127341");
-    GotoXY(87, 35); TextColor(11); printf("Nguyen Phuoc Minh Tri");  GotoXY(115, 35); TextColor(11); printf("22127424");
+    GotoXY(87, 31); setColor(1,15); printf("- Ho va ten -");          GotoXY(115, 31); setColor(1,15); printf("- MSSV -");
+    GotoXY(87, 32); setColor(11,15); printf("Pham Van Minh");          GotoXY(115, 32); setColor(11,15); printf("22127272");
+    GotoXY(87, 33); setColor(11,15); printf("Truong Nhat Huy");        GotoXY(115, 33); setColor(11,15); printf("22127168");
+    GotoXY(87, 34); setColor(11,15); printf("Nguyen The Quan");        GotoXY(115, 34); setColor(11,15); printf("22127341");
+    GotoXY(87, 35); setColor(11,15); printf("Nguyen Phuoc Minh Tri");  GotoXY(115, 35); setColor(11,15); printf("22127424");
 
-    GotoXY(100, 40); TextColor(47); printf("  EXIT  ");
+    GotoXY(93, 40); setColor(47, 15); printf("  Press Enter to EXIT  ");
     //GotoXY(50, 40); //chua hieu dong nay
-    TextColor(0);
+    setColor(0,15);
     char a;
     do
     {
         a = _getch();
-    } while (a != 13 && a != 'e' && a != 'E' && a != '5' && a != 8);
+    } while (a!=13);
     system("cls");
     fflush(stdin);
-    playgame(thoat);
+    Menu(choice);
+}
+void HienThiLuaChonMenu(toado menu) {
+    if (menu.y == 25) {
+        GotoXY(98, 25);
+        setColor(1, 15);
+        printf("%c%c PLAY GAME %c%c", 175, 175, 174, 174);
+        setColor(4, 15);
+        GotoXY(103, 26);
+        printf("HELP");
+        GotoXY(103, 27);
+        printf("ABOUT");
+        GotoXY(103, 28);
+        printf("EXIT");
+    }
+    else if (menu.y == 26) {
+        GotoXY(101, 25);
+        setColor(4, 15);
+        printf("PLAY GAME");
+        setColor(1, 15);
+        GotoXY(98, 26);  printf("%c%c", 175, 175);
+        GotoXY(103, 26); printf("HELP");
+        GotoXY(111, 26); printf("%c%c", 174, 174);
+        setColor(4, 15);
+        GotoXY(103, 27);
+        printf("ABOUT");
+        GotoXY(103, 28);
+        printf("EXIT");
+    }
+    else if (menu.y == 27) {
+        GotoXY(101, 25);
+        setColor(4, 15);
+        printf("PLAY GAME");
+        GotoXY(103, 26);
+        printf("HELP");
+        setColor(1, 15);
+        GotoXY(98, 27);  printf("%c%c", 175, 175);
+        GotoXY(103, 27); printf("ABOUT");
+        GotoXY(111, 27); printf("%c%c", 174, 174);
+        setColor(4, 15);
+        GotoXY(103, 28);
+        printf("EXIT");
+    }
+    else if (menu.y == 28) {
+        GotoXY(101, 25);
+        setColor(4, 15);
+        printf("PLAY GAME");
+        GotoXY(103, 26);
+        printf("HELP");
+        GotoXY(103, 27);
+        printf("ABOUT");
+        setColor(1, 15);
+        GotoXY(98, 28);  printf("%c%c", 175, 175);
+        GotoXY(103, 28); printf("EXIT");
+        GotoXY(111, 28); printf("%c%c", 174, 174);
+        setColor(4, 15);
+    }
+}
+void HienThiMode(toado mode) {
+    if (mode.y == 25) {
+        setColor(1, 15);
+        GotoXY(100, 25); printf("%c%c", 175, 175);
+        GotoXY(104, 25); printf("PvP");
+        GotoXY(109, 25); printf("%c%c", 174, 174);
+        setColor(4, 15);
+        GotoXY(104, 26);
+        printf("PvE");
+        GotoXY(104, 27);
+        printf("EXIT");
+    }
+    else if (mode.y == 26) {
+        GotoXY(104, 25);
+        setColor(4, 15);
+        printf("PvP");
+        setColor(1, 15);
+        GotoXY(100, 26); printf("%c%c", 175, 175);
+        GotoXY(104, 26); printf("PvE");
+        GotoXY(109, 26); printf("%c%c", 174, 174);
+        setColor(4, 15);
+        GotoXY(104, 27);
+        printf("EXIT");
+    }
+    else if (mode.y == 27) {
+        GotoXY(104, 25);
+        setColor(4, 15);
+        printf("PvP");
+        GotoXY(104, 26);
+        printf("PvE");;
+        setColor(1, 15);
+        GotoXY(100, 27); printf("%c%c", 175, 175);
+        GotoXY(104, 27); printf("EXIT");
+        GotoXY(109, 27); printf("%c%c", 174, 174);
+        setColor(4, 15);
+        
+    }
+        
+}
+void Menu(int &choice) {
+	Khung();
+    toado menu = { 98,25 };
+    GotoXY(98, 25);
+    setColor(1, 15);
+    printf("%c%c PLAY GAME %c%c", 175, 175, 174, 174);
+    setColor(4, 15);
+    GotoXY(103, 26);
+    printf("HELP");
+    GotoXY(103, 27);
+    printf("ABOUT");
+    GotoXY(103, 28);
+    printf("EXIT");
+    while (1)
+    {
+        HienThiLuaChonMenu(menu);
+        int x = ControlMenu(menu);
+        if (x == 1) {
+            if (menu.y == 25)
+                choice = 1;
+            else if (menu.y == 26)
+                choice = 2;
+            else if (menu.y == 27)
+                choice = 3;
+            else if (menu.y == 28)
+                choice = 4;
+            break;
+        }
+        if (x == 0) {
+            GotoXY(menu.x, menu.y - 1);
+            cout << "  ";
+            GotoXY(menu.x + 13, menu.y - 1);
+            cout << "  ";
+        }
+        else if (x == -1)
+        {
+            GotoXY(menu.x, menu.y + 1);
+            cout << "  ";
+            GotoXY(menu.x + 13, menu.y + 1);
+            cout << "  ";
+        }
+}
+    system("cls");
+    if (choice == 1)
+    {
+        Khung();
+        toado mode = { 98,25 };
+        int a ;
+        while (1)
+        {
+            HienThiMode(mode);
+            int x = ChooseMode(mode);
+            if (x == 1) {
+                if (mode.y == 25) {
+                    a = 1;
+                }
+                else if (mode.y == 26) {
+                    a = 2;
+                }
+                else if (mode.y = 27) {
+                    a = 3;
+                }
+                break;
+            }
+            if (x == 0) {
+                GotoXY(mode.x+2, mode.y - 1);
+                cout << "  ";
+                GotoXY(mode.x + 11, mode.y - 1);
+                cout << "  ";
+            }
+            else if (x == -1)
+            {
+                GotoXY(mode.x+2, mode.y + 1);
+                cout << "  ";
+                GotoXY(mode.x + 11, mode.y + 1);
+                cout << "  ";
+            }
+        }
+        system("cls");
+        if (a == 1)
+            PlayGame_PvP();
+        else if (a == 2)
+            //PvE
+            ;
+        else if (a == 3)
+        {
+            system("cls");
+            Menu(choice);
+        }
+    }
+    else if (choice == 2)
+        Help(choice);
+    else if (choice == 3)
+        About(choice);
 }
 
-
-// thay doan doan nay vao main 
-/*  FullScreen();
-    setColor(1);
-    FixConsoleWindow();
-    int thoat = 0;
-    playgame(thoat);
-    _getch();
-    FullScreen();
-    setColor(1);
-    FixConsoleWindow();*/
