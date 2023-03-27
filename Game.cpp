@@ -52,16 +52,33 @@ int ProcessFinish(matrix arr[18][20], toado &a, int &s)
 void print_Win(matrix arr[18][20], toado td, int turn) {
     int check = ProcessFinish(arr, td, turn);
     if ((check == 1) && (turn == 1)) {
-        GotoXY(100, 20);
-        cout << "X win";
+        GotoXY(100, 20); cout << "##     ##    ##      ## #### ##    ## ";
+        GotoXY(100, 21); cout << " ##   ##     ##  ##  ##  ##  ###   ## ";
+        GotoXY(100, 22); cout << "  ## ##      ##  ##  ##  ##  ####  ## ";
+        GotoXY(100, 23); cout << "   ###       ##  ##  ##  ##  ## ## ## ";
+        GotoXY(100, 24); cout << "  ## ##      ##  ##  ##  ##  ##  #### ";
+        GotoXY(100, 25); cout << " ##   ##     ##  ##  ##  ##  ##   ### ";
+        GotoXY(100, 26); cout << "##     ##     ###  ###  #### ##    ## ";
+
     }
     else if ((check == 1) && (turn == 0)) {
-        GotoXY(100, 20);
-        cout << "O win";
+        GotoXY(100, 20); cout << " #######     ##      ## #### ##    ## ";
+        GotoXY(100, 21); cout << "##     ##    ##  ##  ##  ##  ###   ## ";
+        GotoXY(100, 22); cout << "##     ##    ##  ##  ##  ##  ####  ## ";
+        GotoXY(100, 23); cout << "##     ##    ##  ##  ##  ##  ## ## ## ";
+        GotoXY(100, 24); cout << "##     ##    ##  ##  ##  ##  ##  #### ";
+        GotoXY(100, 25); cout << "##     ##    ##  ##  ##  ##  ##   ### ";
+        GotoXY(100, 26); cout << " #######      ###  ###  #### ##    ## ";
     }
     else if (check == 0) {
-        GotoXY(100, 20);
-        cout << "Draw";
+        GotoXY(100, 20); cout << "########  ########     ###    ##      ## ";
+        GotoXY(100, 21); cout << "##     ## ##     ##   ## ##   ##  ##  ## ";
+        GotoXY(100, 22); cout << "##     ## ##     ##  ##   ##  ##  ##  ## ";
+        GotoXY(100, 23); cout << "##     ## ########  ##     ## ##  ##  ## ";
+        GotoXY(100, 24); cout << "##     ## ##   ##   ######### ##  ##  ## ";
+        GotoXY(100, 25); cout << "##     ## ##    ##  ##     ## ##  ##  ## ";
+        GotoXY(100, 26); cout << "########  ##     ## ##     ##  ###  ###  ";
+
     }
 }
 //Pause khi win/draw
