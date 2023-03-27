@@ -33,6 +33,37 @@ int CommandControl(toado& s, int& turn, int& countX, int& countO) {
         return 1;
     return 0;
 }
-    
+int ControlMenu(toado& menu) {
+    GotoXY(menu.x, menu.y);
+    int command = _getch();
+    if ((command == 's' || command == 'S') && menu.y < 28) {
+        GotoXY(menu.x, menu.y + 1);
+        menu.y += 1;
+        return 0;
+    }
+    else if ((command == 'w' || command == 'W') && menu.y > 25) {
+        GotoXY(menu.x, menu.y - 1);
+        menu.y -= 1;
+        return -1;
+    }
+    if (command == 13)
+        return 1;
+}
+int ChooseMode(toado& mode) {
+    GotoXY(mode.x, mode.y);
+    int command = _getch();
+    if ((command == 's' || command == 'S') && mode.y < 27) {
+        GotoXY(mode.x, mode.y + 1);
+        mode.y += 1;
+        return 0;
+    }
+    else if ((command == 'w' || command == 'W') && mode.y > 25) {
+        GotoXY(mode.x, mode.y - 1);
+        mode.y -= 1;
+        return -1;
+    }
+    if (command == 13)
+        return 1;
+}  
 
 
