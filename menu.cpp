@@ -199,3 +199,14 @@ void about(int& thoat)
     playgame(thoat);
 }
 
+
+// thay doan doan nay vao main 
+/*  FullScreen();
+    setColor(1);
+    FixConsoleWindow();
+    int thoat = 0;
+    playgame(thoat);
+    _getch();
+    FullScreen();
+    setColor(1);
+    FixConsoleWindow();*/
