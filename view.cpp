@@ -93,21 +93,26 @@ void DrawBoard() { //vẽ bảng
 }
 //Hien thi luot danh
 void ShowNumberTurn(int countX,int countO,int &turn) {
-    GotoXY(100, 3);
+     GotoXY(100, 3); TextColor(1); printf("Luot Choi");
+    GotoXY(101, 4); printf("--   --");
+
     if (turn == 1) {
-        setColor(3, 15);
-        cout << "X";
+        TextColor(14);
+        GotoXY(104, 4); cout << "X";
     }
     else if (turn == 0) {
-        setColor(12, 15);
-        cout << "O";
+        TextColor(12);
+        GotoXY(104, 4); cout << "O";
     }
-    GotoXY(150, 3);
-    setColor(3,15);
-    cout << countX;
-    GotoXY(170, 3);
-    setColor(12,15);
-    cout << countO;
+    
+    GotoXY(150, 3); TextColor(1); printf("So Quan Co");
+    GotoXY(148, 4); printf("  -   |   -   ");
+    GotoXY(148, 4); printf("X");
+    GotoXY(156, 4); printf("O");
+    TextColor(14);
+    GotoXY(152, 4); cout << countX;
+    TextColor(12);
+    GotoXY(160, 4); cout << countO;
 }
 void Khung()
 {
