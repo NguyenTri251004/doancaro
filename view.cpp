@@ -133,7 +133,7 @@ void Khung()
     GotoXY(209, 0); printf("%c", 187);//  209
     GotoXY(209, 46); printf("%c", 188);//  209
     // CHU Ten do an
-    GotoXY(98, 0); SetColor(15,1); cout<<" DO AN CO CARO ";
+    GotoXY(98, 0); setColor(1,15); cout<<" DO AN CO CARO ";
     //Vien quanh ten nhom
     setColor(2,15);
     for (int i = 0; i < 55; i++)
