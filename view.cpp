@@ -24,13 +24,6 @@ void GotoXY(int x, int y) { //tọa độ
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-void SetColor(int backgound_color, int text_color)
-{
-    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    int color_code = backgound_color * 16 + text_color;
-    SetConsoleTextAttribute(hStdout, color_code);
-}
 void DrawBoard() { //vẽ bảng
     setColor(3, 15);
     for (int i = 2; i <= 44; i++) //vẽ ô bên trong
