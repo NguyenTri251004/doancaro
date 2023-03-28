@@ -18,7 +18,7 @@ void moveUp(toado &a) {
     GotoXY(a.x, a.y-2); 
     a.y -= 2;
 }
-int CommandControl(toado& s, int& turn, int& countX, int& countO) {
+int CommandControl(toado& s) {
     GotoXY(s.x, s.y);
     int command = _getch();
     if ((command == 'a' || command == 'A') && s.x > 5)
