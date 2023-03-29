@@ -1,4 +1,7 @@
+#pragma comment (lib, "winmm.lib")
 #include "Game.h"
+#include "control.h"
+#include "Windows.h"
 using namespace std;
 //khoi tao du lieu
 void resetData(matrix arr[18][20]) {
@@ -19,7 +22,7 @@ bool checkFullBoard(matrix arr[18][20]) {
     return true;
 }
 //check win/lose/draw
-int ProcessFinish(matrix arr[18][20], toado &a, int &s)
+int ProcessFinish(matrix arr[18][20], toado& a, int& s)
 {
     int x = (a.x - 1) / 4 - 1;
     int y = (a.y - 1) / 2 - 1;
@@ -59,6 +62,7 @@ void print_Win(matrix arr[18][20], toado td, int turn) {
         GotoXY(100, 24); cout << "  ## ##      ##  ##  ##  ##  ##  #### ";
         GotoXY(100, 25); cout << " ##   ##     ##  ##  ##  ##  ##   ### ";
         GotoXY(100, 26); cout << "##     ##     ###  ###  #### ##    ## ";
+        PlaySound(L"Win", NULL, SND_ASYNC);
 
     }
     else if ((check == 1) && (turn == 0)) {
@@ -69,6 +73,7 @@ void print_Win(matrix arr[18][20], toado td, int turn) {
         GotoXY(100, 24); cout << "##     ##    ##  ##  ##  ##  ##  #### ";
         GotoXY(100, 25); cout << "##     ##    ##  ##  ##  ##  ##   ### ";
         GotoXY(100, 26); cout << " #######      ###  ###  #### ##    ## ";
+        PlaySound(L"Win", NULL, SND_ASYNC);
     }
     else if (check == 0) {
         GotoXY(100, 20); cout << "########  ########     ###    ##      ## ";
@@ -78,7 +83,7 @@ void print_Win(matrix arr[18][20], toado td, int turn) {
         GotoXY(100, 24); cout << "##     ## ##   ##   ######### ##  ##  ## ";
         GotoXY(100, 25); cout << "##     ## ##    ##  ##     ## ##  ##  ## ";
         GotoXY(100, 26); cout << "########  ##     ## ##     ##  ###  ###  ";
-
+        PlaySound(L"Win", NULL, SND_ASYNC);
     }
 }
 //Pause khi win/draw
@@ -94,21 +99,23 @@ int print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) 
     int y = (s.y - 1) / 2 - 1;
     if ((turn == 1) && (arr[x][y].z == -1) && (arr[x][y].z != 0)) {
         arr[x][y].z = 1;
-        setColor(10,15);
+        setColor(10, 15);
         cout << "X";
+        PlaySound(L"Turn", NULL, SND_ASYNC);
         countX += 1;
         return 1;
     }
     else if ((turn == 0) && (arr[x][y].z == -1) && (arr[x][y].z != 1)) {
         arr[x][y].z = 0;
-        setColor(12,15);
+        setColor(12, 15);
         cout << "O";
+        PlaySound(L"Turn", NULL, SND_ASYNC);
         countO += 1;
         return 0;
     }
 }
 //che do PvP
-void PvP(matrix arr[18][20],toado s) {
+void PvP(matrix arr[18][20], toado& s) {
     int x = 0, turn = 1, countX = 0, countO = 0;
     while (1)
     {
@@ -121,7 +128,7 @@ void PvP(matrix arr[18][20],toado s) {
             int x = print_X_0(arr, s, turn, countX, countO);
             if (ConditionPause(arr, s, turn) == 1) {
                 print_Win(arr, s, turn);
-                ShowNumberTurn(countX, countO, turn); //goi lai de update so luot
+                ShowNumberTurn(countX, countO, turn);
                 break;
             }
             if (x == 1)
@@ -131,6 +138,7 @@ void PvP(matrix arr[18][20],toado s) {
         }
     }
 }
+
 //ham goi cho menu PvP
 void PlayGame_PvP() {
     matrix arr[18][20];
