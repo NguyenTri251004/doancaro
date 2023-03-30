@@ -117,6 +117,7 @@ void PvP(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
     int x = 0, turn = 1, countX = 0, countO = 0;
     while (1)
     {
+        Custom();
         ShowNumberTurn(countX, countO, turn);
         int command = CommandControl(s);
         if (command == 0) {
