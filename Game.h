@@ -2,8 +2,10 @@
 #include"Function_C.h"
 #include"Control.h"
 #include"view.h"
+#define BOARD_SIZE 18 //update
 struct matrix {
 	int x, y, z;
 };
-void resetData(matrix arr[18][20]);
-void PlayGame_PvP(); 
+void resetData(matrix arr[BOARD_SIZE][BOARD_SIZE]);
+void PlayGame_PvP();
+
