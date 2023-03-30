@@ -86,26 +86,35 @@ void DrawBoard() { //vẽ bảng
 }
 //Hien thi luot danh
 void ShowNumberTurn(int countX,int countO,int &turn) {
-     GotoXY(100, 3); TextColor(1); printf("Luot Choi");
+     GotoXY(100, 3); setColor(5,15); printf("Luot Choi");
     GotoXY(101, 4); printf("--   --");
 
     if (turn == 1) {
-        TextColor(14);
+        setColor(1,15);
         GotoXY(104, 4); cout << "X";
     }
     else if (turn == 0) {
-        TextColor(12);
+        setColor(12,15);
         GotoXY(104, 4); cout << "O";
     }
-    
-    GotoXY(150, 3); TextColor(1); printf("So Quan Co");
-    GotoXY(148, 4); printf("  -   |   -   ");
-    GotoXY(148, 4); printf("X");
-    GotoXY(156, 4); printf("O");
-    TextColor(14);
-    GotoXY(152, 4); cout << countX;
-    TextColor(12);
-    GotoXY(160, 4); cout << countO;
+
+    GotoXY(150, 3); setColor(1,15); printf("Player 1");
+    GotoXY(151, 4); printf("X - ");
+    GotoXY(179, 3); setColor(12, 15); printf("Player 2");
+    GotoXY(180, 4); printf("O - ");
+    setColor(1,15);
+    GotoXY(155, 4); cout << countX;
+    setColor(12,15);
+    GotoXY(184, 4); cout << countO;
+
+    setColor(3, 15);
+    GotoXY(120, 35); printf("  $$$$$$      $$$$$$$         $$$$$$       $$$$$     $$$$$$$$$     $$$$$$$\n"); Sleep(40);
+    GotoXY(120, 36); printf("$$$    $$$  $$$     $$$     $$$    $$$    $$$ $$$    $$$    $$$  $$$     $$$\n"); Sleep(40); setColor(3, 15);
+    GotoXY(120, 37); printf("$$$         $$$     $$$     $$$          $$$   $$$   $$$   $$$   $$$     $$$\n"); Sleep(40);
+    GotoXY(120, 38); printf("$$$         $$$     $$$     $$$         $$$$$$$$$$$  $$$$$$$$    $$$     $$$\n"); Sleep(40); setColor(4, 15);
+    GotoXY(120, 39); printf("$$$    $$$  $$$     $$$     $$$    $$$  $$$     $$$  $$$   $$$   $$$     $$$\n"); Sleep(40);
+    GotoXY(120, 40); printf("  $$$$$$      $$$$$$$         $$$$$$    $$$     $$$  $$$    $$$    $$$$$$$  \n");
+
 }
 void Khung()
 {
