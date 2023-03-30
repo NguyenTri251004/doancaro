@@ -4,28 +4,28 @@
 #include "Windows.h"
 using namespace std;
 //khoi tao du lieu
-void resetData(matrix arr[18][20]) {
-    for (int i = 0; i < 18; i++)
-        for (int j = 0; j < 20; j++)
+void resetData(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
+    for (int i = 0; i < BOARD_SIZE; i++)
+        for (int j = 0; j < BOARD_SIZE; j++)
         {
-            arr[i][j].x = 5 + i * 4;
-            arr[i][j].y = 3 + j * 2;
-            arr[i][j].z = -1; //chua danh
+            arr[i][j].x =  13 + j * 4;
+            arr[i][j].y = 8 + i * 2;
+            arr[i][j].z = 7; //chua danh
         }
 }
 //check ban co con trong o nao hay ko
-bool checkFullBoard(matrix arr[18][20]) {
-    for (int i = 0; i < 18; i++)
-        for (int j = 0; j < 20; j++)
-            if (arr[i][j].z == -1)
+bool checkFullBoard(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
+    for (int i = 0; i < BOARD_SIZE; i++)
+        for (int j = 0; j <BOARD_SIZE; j++)
+            if (arr[i][j].z == 7)
                 return false;
     return true;
 }
 //check win/lose/draw
-int ProcessFinish(matrix arr[18][20], toado& a, int& s)
+int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& a, int& s)
 {
-    int x = (a.x - 1) / 4 - 1;
-    int y = (a.y - 1) / 2 - 1;
+    int x = (a.y - 8) / 2;
+    int y = (a.x - 13) / 4;
     // x thang tra ve 1
     for (int i = 0; i < 5; i++) //check hang ngang 
     {
@@ -52,7 +52,7 @@ int ProcessFinish(matrix arr[18][20], toado& a, int& s)
     return -1;
 }
 //in ai win/draw
-void print_Win(matrix arr[18][20], toado td, int turn) {
+void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn) {
     int check = ProcessFinish(arr, td, turn);
     if ((check == 1) && (turn == 1)) {
         GotoXY(140, 20); cout << "##     ##    ##      ## #### ##    ## ";
@@ -85,17 +85,17 @@ void print_Win(matrix arr[18][20], toado td, int turn) {
     }
 }
 //Pause khi win/draw
-int ConditionPause(matrix arr[18][20], toado td, int turn) {
+int ConditionPause(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn) {
     if (ProcessFinish(arr, td, turn) == 1)
         return 1;
     return 0;
 }
 //Dung in X/O tren man hinh
-int print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) {
+int print_X_0(matrix arr[BOARD_SIZE][BOARD_SIZE], toado s, int& turn, int& countX, int& countO) {
     GotoXY(s.x, s.y);
-    int x = (s.x - 1) / 4 - 1;
-    int y = (s.y - 1) / 2 - 1;
-    if ((turn == 1) && (arr[x][y].z == -1) && (arr[x][y].z != 0)) {
+    int x = (s.y - 8) / 2;
+    int y = (s.x - 13) / 4;
+    if ((turn == 1) && (arr[x][y].z == 7) && (arr[x][y].z != 0)) {
         arr[x][y].z = 1;
         setColor(10, 15);
         cout << "X";
@@ -103,7 +103,7 @@ int print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) 
         countX += 1;
         return 1;
     }
-    else if ((turn == 0) && (arr[x][y].z == -1) && (arr[x][y].z != 1)) {
+    else if ((turn == 0) && (arr[x][y].z == 7) && (arr[x][y].z != 1)) {
         arr[x][y].z = 0;
         setColor(12, 15);
         cout << "O";
@@ -113,14 +113,15 @@ int print_X_0(matrix arr[18][20], toado s, int& turn, int& countX, int& countO) 
     }
 }
 //che do PvP
-void PvP(matrix arr[18][20], toado& s) {
+void PvP(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
     int x = 0, turn = 1, countX = 0, countO = 0;
     while (1)
     {
         ShowNumberTurn(countX, countO, turn);
         int command = CommandControl(s);
-        if (command == 0)
+        if (command == 0) {
             continue;
+        }
         else if (command == 1)
         {
             int x = print_X_0(arr, s, turn, countX, countO);
@@ -139,9 +140,9 @@ void PvP(matrix arr[18][20], toado& s) {
 
 //ham goi cho menu PvP
 void PlayGame_PvP() {
-    matrix arr[18][20];
-    toado s = { 33,21 };
+    matrix arr[BOARD_SIZE][BOARD_SIZE];
+    toado s = { 33,22 };
     DrawBoard();
     resetData(arr);
-    PvP(arr, s);
+    PvP(arr, s);  
 }
