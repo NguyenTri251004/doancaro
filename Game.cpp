@@ -62,6 +62,7 @@ void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn) {
         GotoXY(140, 29); cout << "  ## ##      ##  ##  ##  ##  ##  #### ";
         GotoXY(140, 30); cout << " ##   ##     ##  ##  ##  ##  ##   ### ";
         GotoXY(140, 31); cout << "##     ##     ###  ###  #### ##    ## ";
+        PlaySound(L"Win", NULL, SND_ASYNC);
 
     }
     else if ((check == 1) && (turn == 0)) {
@@ -72,6 +73,7 @@ void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn) {
         GotoXY(140, 29); cout << "##     ##    ##  ##  ##  ##  ##  #### ";
         GotoXY(140, 30); cout << "##     ##    ##  ##  ##  ##  ##   ### ";
         GotoXY(140, 31); cout << " #######      ###  ###  #### ##    ## ";
+        PlaySound(L"Win", NULL, SND_ASYNC);
     }
     else if (check == 0) {
         GotoXY(140, 25); cout << "########  ########     ###    ##      ## ";
@@ -81,7 +83,7 @@ void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn) {
         GotoXY(140, 29); cout << "##     ## ##   ##   ######### ##  ##  ## ";
         GotoXY(140, 30); cout << "##     ## ##    ##  ##     ## ##  ##  ## ";
         GotoXY(140, 31); cout << "########  ##     ## ##     ##  ###  ###  ";
-
+        PlaySound(L"Win", NULL, SND_ASYNC);
     }
 }
 //Pause khi win/draw
