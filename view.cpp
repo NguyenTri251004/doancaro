@@ -5,6 +5,13 @@ void HideCursor() {
     CONSOLE_CURSOR_INFO cursor_info = { 1, 0 };
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor_info);
 }
+void ShowConsoleCursor() {
+    CONSOLE_CURSOR_INFO cursorInfo;
+    GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+    cursorInfo.bVisible = true;
+    SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursorInfo);
+}
+
 void FullScreen() {
     ::SendMessage(::GetConsoleWindow(), WM_SYSKEYDOWN, VK_RETURN, 0x20000000);
 }
@@ -26,7 +33,6 @@ void GotoXY(int x, int y) { //tọa độ
 }
 void DrawBoard() { //vẽ bảng
     setColor(3, 15);
-    
     for (int i = -3; i <= 40; i++) //vẽ ô bên trong
     {
         for (int j = -8; j <= 24; j++)
@@ -103,11 +109,12 @@ void DrawBoard() { //vẽ bảng
             x += 2;
         }  
     }
+    Custom();
 }
 //Hien thi luot danh
 void ShowNumberTurn(int countX, int countO, int& turn) {
+    HideCursor();
     GotoXY(151, 39); setColor(5, 15); printf("Luot Choi");
-
     if (turn == 1) {
         setColor(1, 15);
         GotoXY(151, 40); cout << "##     ## ";
@@ -137,8 +144,7 @@ void ShowNumberTurn(int countX, int countO, int& turn) {
     GotoXY(134, 16); cout << countX;
     setColor(12, 15);
     GotoXY(194, 16); cout << countO;
-
-
+    ShowConsoleCursor();
 }
 void Khung()
 {
