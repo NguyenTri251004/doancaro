@@ -8,7 +8,7 @@ void resetData(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
     for (int i = 0; i < BOARD_SIZE; i++)
         for (int j = 0; j < BOARD_SIZE; j++)
         {
-            arr[i][j].x =  13 + j * 4;
+            arr[i][j].x = 13 + j * 4;
             arr[i][j].y = 8 + i * 2;
             arr[i][j].z = 7; //chua danh
         }
@@ -16,7 +16,7 @@ void resetData(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
 //check ban co con trong o nao hay ko
 bool checkFullBoard(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
     for (int i = 0; i < BOARD_SIZE; i++)
-        for (int j = 0; j <BOARD_SIZE; j++)
+        for (int j = 0; j < BOARD_SIZE; j++)
             if (arr[i][j].z == 7)
                 return false;
     return true;
@@ -54,7 +54,7 @@ int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& a, int& s)
 //in ai win/draw
 void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn) {
     int check = ProcessFinish(arr, td, turn);
-     if ((check == 1) && (turn == 1)) {
+    if ((check == 1) && (turn == 1)) {
         GotoXY(140, 25); cout << "##     ##    ##      ## #### ##    ## ";
         GotoXY(140, 26); cout << " ##   ##     ##  ##  ##  ##  ###   ## ";
         GotoXY(140, 27); cout << "  ## ##      ##  ##  ##  ##  ####  ## ";
@@ -117,7 +117,6 @@ void PvP(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
     int x = 0, turn = 1, countX = 0, countO = 0;
     while (1)
     {
-        Custom();
         ShowNumberTurn(countX, countO, turn);
         int command = CommandControl(s);
         if (command == 0) {
@@ -129,6 +128,7 @@ void PvP(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
             if (ConditionPause(arr, s, turn) == 1) {
                 print_Win(arr, s, turn);
                 ShowNumberTurn(countX, countO, turn);
+                HideCursor();
                 break;
             }
             if (x == 1)
@@ -145,5 +145,5 @@ void PlayGame_PvP() {
     toado s = { 33,22 };
     DrawBoard();
     resetData(arr);
-    PvP(arr, s);  
+    PvP(arr, s);
 }
