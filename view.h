@@ -9,3 +9,4 @@ void DrawBoard();
 void ShowNumberTurn(int countX, int countO, int& turn);
 void Khung(); 
 void Custom();
+void printOptions(int x);
