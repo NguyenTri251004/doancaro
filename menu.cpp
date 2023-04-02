@@ -4,6 +4,37 @@
 #include "Function_C.h"
 #include"Game.h"
 using namespace std;
+void printOptions(int x) {
+    setColor(3, 15);
+    int left = 99, top = 24;
+    GotoXY(left, top);
+    putchar(201);
+    for (int i = 1; i < 12; i++) {
+        putchar(205);
+    }
+    putchar(187);
+    for (int i = 1; i < x; i++) { //(8/2 = so o )
+        GotoXY(left, top + i);
+        if (i % 2 != 0) {
+            putchar(186);
+            GotoXY(left + 12, top + i);
+            putchar(186);
+        }
+        else {
+            putchar(199);
+            for (int i = 1; i < 12; i++) {
+                putchar(196);
+            }
+            putchar(182);
+        }
+    }
+    GotoXY(left, top + x);
+    putchar(200);
+    for (int i = 1; i < 12; i++) {
+        putchar(205);
+    }
+    putchar(188);
+}
 void Help(int& choice)
 {
     Khung();
@@ -69,196 +100,125 @@ void About(int& choice)
     fflush(stdin);
     Menu(choice);
 }
-void HienThiLuaChonMenu(toado menu) {
-    if (menu.y == 25) {
-        GotoXY(98, 25);
+void HienThiLuaChonMenu(toado s) {
+    char a[10] = "PLAY GAME";
+    char b[10] = "HELP";
+    char c[10] = "ABOUT";
+    char d[10] = "EXIT";
+    setColor(4, 15);
+    GotoXY(101, 25);
+    cout << a;
+    GotoXY(103, 27);
+    cout << b;
+    GotoXY(103, 29);
+    cout << c;
+    GotoXY(103, 31);
+    cout << d;
+    if (s.y == 25) {
         setColor(1, 15);
-        printf("%c%c PLAY GAME %c%c", 175, 175, 174, 174);
-        setColor(4, 15);
-        GotoXY(103, 26);
-        printf("HELP");
-        GotoXY(103, 27);
-        printf("ABOUT");
-        GotoXY(103, 28);
-        printf("EXIT");
-    }
-    else if (menu.y == 26) {
         GotoXY(101, 25);
+        cout << a;
         setColor(4, 15);
-        printf("PLAY GAME");
-        setColor(1, 15);
-        GotoXY(98, 26);  printf("%c%c", 175, 175);
-        GotoXY(103, 26); printf("HELP");
-        GotoXY(111, 26); printf("%c%c", 174, 174);
-        setColor(4, 15);
-        GotoXY(103, 27);
-        printf("ABOUT");
-        GotoXY(103, 28);
-        printf("EXIT");
     }
-    else if (menu.y == 27) {
-        GotoXY(101, 25);
-        setColor(4, 15);
-        printf("PLAY GAME");
-        GotoXY(103, 26);
-        printf("HELP");
+    else if (s.y == 27) {
         setColor(1, 15);
-        GotoXY(98, 27);  printf("%c%c", 175, 175);
-        GotoXY(103, 27); printf("ABOUT");
-        GotoXY(111, 27); printf("%c%c", 174, 174);
-        setColor(4, 15);
-        GotoXY(103, 28);
-        printf("EXIT");
-    }
-    else if (menu.y == 28) {
-        GotoXY(101, 25);
-        setColor(4, 15);
-        printf("PLAY GAME");
-        GotoXY(103, 26);
-        printf("HELP");
         GotoXY(103, 27);
-        printf("ABOUT");
+        cout << b;
+        setColor(4, 15);
+    }
+    else if (s.y == 29) {
         setColor(1, 15);
-        GotoXY(98, 28);  printf("%c%c", 175, 175);
-        GotoXY(103, 28); printf("EXIT");
-        GotoXY(111, 28); printf("%c%c", 174, 174);
+        GotoXY(103, 29);
+        cout << c;
+        setColor(4, 15);
+    }
+    else if (s.y == 31) {
+        setColor(1, 15);
+        GotoXY(103, 31);
+        cout << d;
         setColor(4, 15);
     }
 }
 void HienThiMode(toado mode) {
+    char pvp[10] = "PvP";
+    char pve[10] = "PvE";
+    char exit[10] = "EXIT";
+    setColor(4, 15);
+    GotoXY(104, 25);
+    cout << pvp;
+    GotoXY(104, 27);
+    cout << pve;
+    GotoXY(104, 29);
+    cout << exit;
     if (mode.y == 25) {
         setColor(1, 15);
-        GotoXY(100, 25); printf("%c%c", 175, 175);
-        GotoXY(104, 25); printf("PvP");
-        GotoXY(109, 25); printf("%c%c", 174, 174);
-        setColor(4, 15);
-        GotoXY(104, 26);
-        printf("PvE");
-        GotoXY(104, 27);
-        printf("EXIT");
-    }
-    else if (mode.y == 26) {
         GotoXY(104, 25);
+        cout << pvp;
         setColor(4, 15);
-        printf("PvP");
-        setColor(1, 15);
-        GotoXY(100, 26); printf("%c%c", 175, 175);
-        GotoXY(104, 26); printf("PvE");
-        GotoXY(109, 26); printf("%c%c", 174, 174);
-        setColor(4, 15);
-        GotoXY(104, 27);
-        printf("EXIT");
     }
     else if (mode.y == 27) {
-        GotoXY(104, 25);
-        setColor(4, 15);
-        printf("PvP");
-        GotoXY(104, 26);
-        printf("PvE");;
         setColor(1, 15);
-        GotoXY(100, 27); printf("%c%c", 175, 175);
-        GotoXY(104, 27); printf("EXIT");
-        GotoXY(109, 27); printf("%c%c", 174, 174);
+        GotoXY(104, 27);
+        cout << pve;
         setColor(4, 15);
+    }
+    else if (mode.y == 29) {
+        setColor(1, 15);
+        GotoXY(104, 29);
+        cout << exit;
+        setColor(4, 15);
+    }
+}
+void SelectMode(toado& mode, int choice) {
+    int y;
+    do {
+        HienThiMode(mode);
+        int x = ChooseMode(mode);
+        if (x == 0) {
+            y = mode.y;
+            break;
+        }
+    } while (1);
+    if (y == 25) {
+        system("cls");
+        PlayGame_PvP();
+        //ask continue = while && luu file
 
     }
-
+    else if (y == 27) {
+        //pve
+    }
+    else if (y == 29) {
+        system("cls");
+        Menu(choice);
+    }
 }
 void Menu(int& choice) {
     Khung();
     HideCursor();
     toado menu = { 98,25 };
-    GotoXY(98, 25);
-    setColor(1, 15);
-    printf("%c%c PLAY GAME %c%c", 175, 175, 174, 174);
-    setColor(4, 15);
-    GotoXY(103, 26);
-    printf("HELP");
-    GotoXY(103, 27);
-    printf("ABOUT");
-    GotoXY(103, 28);
-    printf("EXIT");
-    while (1)
-    {
+    printOptions(8);
+    int y;
+    do {
         HienThiLuaChonMenu(menu);
         int x = ControlMenu(menu);
-        if (x == 1) {
-            if (menu.y == 25)
-                choice = 1;
-            else if (menu.y == 26)
-                choice = 2;
-            else if (menu.y == 27)
-                choice = 3;
-            else if (menu.y == 28)
-                choice = 4;
+        if (x == 0) {
+            y = menu.y;
             break;
         }
-        if (x == 0) {
-            GotoXY(menu.x, menu.y - 1);
-            cout << "  ";
-            GotoXY(menu.x + 13, menu.y - 1);
-            cout << "  ";
-        }
-        else if (x == -1)
-        {
-            GotoXY(menu.x, menu.y + 1);
-            cout << "  ";
-            GotoXY(menu.x + 13, menu.y + 1);
-            cout << "  ";
-        }
-    }
+    } while (1);
     system("cls");
-    if (choice == 1)
+    if (y == 25)
     {
         Khung();
+        printOptions(6);
         toado mode = { 98,25 };
-        int a;
-        while (1)
-        {
-            HienThiMode(mode);
-            int x = ChooseMode(mode);
-            if (x == 1) {
-                if (mode.y == 25) {
-                    a = 1;
-                }
-                else if (mode.y == 26) {
-                    a = 2;
-                }
-                else if (mode.y = 27) {
-                    a = 3;
-                }
-                break;
-            }
-            if (x == 0) {
-                GotoXY(mode.x + 2, mode.y - 1);
-                cout << "  ";
-                GotoXY(mode.x + 11, mode.y - 1);
-                cout << "  ";
-            }
-            else if (x == -1)
-            {
-                GotoXY(mode.x + 2, mode.y + 1);
-                cout << "  ";
-                GotoXY(mode.x + 11, mode.y + 1);
-                cout << "  ";
-            }
-        }
-        system("cls");
-        if (a == 1) {
-            ShowConsoleCursor();
-            PlayGame_PvP();
-        }
-        else if (a == 2)
-            //PvE
-            ;
-        else if (a == 3)
-        {
-            system("cls");
-            Menu(choice);
-        }
+        SelectMode(mode, choice);
     }
-    else if (choice == 2)
+    else if (y == 27)
         Help(choice);
-    else if (choice == 3)
+    else if (y == 29)
         About(choice);
+    else if (y == 31)
+        system("cls");
 }
