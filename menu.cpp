@@ -4,37 +4,6 @@
 #include "Function_C.h"
 #include"Game.h"
 using namespace std;
-void printOptions(int x) {
-    setColor(3, 15);
-    int left = 99, top = 24;
-    GotoXY(left, top);
-    putchar(201);
-    for (int i = 1; i < 12; i++) {
-        putchar(205);
-    }
-    putchar(187);
-    for (int i = 1; i < x; i++) { //(8/2 = so o )
-        GotoXY(left, top + i);
-        if (i % 2 != 0) {
-            putchar(186);
-            GotoXY(left + 12, top + i);
-            putchar(186);
-        }
-        else {
-            putchar(199);
-            for (int i = 1; i < 12; i++) {
-                putchar(196);
-            }
-            putchar(182);
-        }
-    }
-    GotoXY(left, top + x);
-    putchar(200);
-    for (int i = 1; i < 12; i++) {
-        putchar(205);
-    }
-    putchar(188);
-}
 void Help(int& choice)
 {
     Khung();
@@ -183,7 +152,6 @@ void SelectMode(toado& mode, int choice) {
         system("cls");
         PlayGame_PvP();
         //ask continue = while && luu file
-
     }
     else if (y == 27) {
         //pve
