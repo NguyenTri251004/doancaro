@@ -9,9 +9,8 @@ void main()
 {
     int choice = 0;
     system("color f0");
-    FullScreen();
     FixConsoleWindow();
+    FullScreen();
     Menu(choice);
     _getch();
 }
-
