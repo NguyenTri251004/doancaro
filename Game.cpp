@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "control.h"
 #include "Windows.h"
+
 using namespace std;
 //khoi tao du lieu
 void resetData(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
@@ -22,15 +23,16 @@ bool checkFullBoard(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
     return true;
 }
 //check win/lose/draw
-int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& a, int& s)
+int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& a, int s)
 {
     int x = (a.y - 8) / 2;
     int y = (a.x - 13) / 4;
     // x thang tra ve 1
     for (int i = 0; i < 5; i++) //check hang ngang 
     {
-        if (arr[x - 4 + i][y].z == s && arr[x - 3 + i][y].z == s && arr[x - 2 + i][y].z == s && arr[x - 1 + i][y].z == s && arr[x + i][y].z == s)
+        if (arr[x - 4 + i][y].z == s && arr[x - 3 + i][y].z == s && arr[x - 2 + i][y].z == s && arr[x - 1 + i][y].z == s && arr[x + i][y].z == s) {
             return 1;
+        }
     }
     for (int i = 0; i < 5; i++) // check hang doc 
     {
@@ -91,7 +93,7 @@ int ConditionPause(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn) {
     return 0;
 }
 //Dung in X/O tren man hinh
-int print_X_0(matrix arr[BOARD_SIZE][BOARD_SIZE], toado s, int& turn, int& countX, int& countO) {
+int PvP_print_X_0(matrix arr[BOARD_SIZE][BOARD_SIZE], toado s, int& turn, int& countX, int& countO) {
     GotoXY(s.x, s.y);
     int x = (s.y - 8) / 2;
     int y = (s.x - 13) / 4;
@@ -124,7 +126,7 @@ void PvP(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
         }
         else if (command == 1)
         {
-            int x = print_X_0(arr, s, turn, countX, countO);
+            int x = PvP_print_X_0(arr, s, turn, countX, countO);
             if (ConditionPause(arr, s, turn) == 1) {
                 print_Win(arr, s, turn);
                 PlaySound(L"Win", NULL, SND_ASYNC);
@@ -139,7 +141,388 @@ void PvP(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
         }
     }
 }
-
+int CheckDuong4X(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s, int XO) {
+    int x = (s.y - 8) / 2;
+    int y = (s.x - 13) / 4;
+    for (int i = 0; i < 4; i++)
+        if (arr[x - 3 + i][y].z == XO && arr[x - 2 + i][y].z == XO && arr[x - 1 + i][y].z == XO && arr[x + i][y].z == XO) {
+            return 1;
+        }
+    for (int i = 0; i < 4; i++)
+        if (arr[x][y - 3 + i].z == XO && arr[x][y - 2 + i].z == XO && arr[x][y - 1 + i].z == XO && arr[x][y + i].z == XO) {
+            return 2;
+        }
+    for (int i = 0; i < 4; i++)
+        if ((arr[x - 3 + i][y - 3 + i].z == XO) && (arr[x - 2 + i][y - 2 + i].z == XO) && (arr[x - 1 + i][y - 1 + i].z == XO) && (arr[x + i][y + i].z == XO)) {
+            return 3;
+        }
+    for (int i = 0; i < 4; i++)
+        if ((arr[x + 3 - i][y - 3 + i].z == XO) && (arr[x + 2 - i][y - 2 + i].z == XO) && (arr[x + 1 - i][y - 1 + i].z == XO) && (arr[x - i][y + i].z == XO)) {
+            return 4;
+        }
+    return 0;
+}
+int CheckDuong3X(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s,int XO) {
+    int x = (s.y - 8) / 2;
+    int y = (s.x - 13) / 4;
+    for (int i = 0; i < 3; i++)
+        if (arr[x - 2 + i][y].z == XO && arr[x - 1 + i][y].z == XO && arr[x + i][y].z == XO) {
+            return 1;
+        }
+    for (int i = 0; i < 3; i++)
+        if (arr[x][y - 2 + i].z == XO && arr[x][y - 1 + i].z == XO && arr[x][y + i].z == XO) {
+            return 2;
+        }
+    for (int i = 0; i < 3; i++)
+        if ((arr[x - 2 + i][y - 2 + i].z == XO) && (arr[x - 1 + i][y - 1 + i].z == XO) && (arr[x + i][y + i].z == XO)) {
+            return 3;
+        }
+    for (int i = 0; i < 3; i++)
+        if ((arr[x + 2 - i][y - 2 + i].z == XO) && (arr[x + 1 - i][y - 1 + i].z == XO) && (arr[x - i][y + i].z == XO)) {
+            return 4;
+        }
+    return 0;
+}
+int CheckDuong2X(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
+    int x = (s.y - 8) / 2;
+    int y = (s.x - 13) / 4;
+    for (int i = 0; i < 2; i++)
+        if (arr[x - 1 + i][y].z == 1 && arr[x + i][y].z == 1) {
+            return 1;
+        }
+    for (int i = 0; i < 2; i++)
+        if (arr[x][y - 1 + i].z == 1 && arr[x][y + i].z == 1) {
+            return 2;
+        }
+    for (int i = 0; i < 2; i++)
+        if ((arr[x - 1 + i][y - 1 + i].z == 1) && (arr[x + i][y + i].z == 1)) {
+            return 3;
+        }
+    for (int i = 0; i < 2; i++)
+        if ((arr[x + 1 - i][y - 1 + i].z == 1) && (arr[x - i][y + i].z == 1)) {
+            return 4;
+        }
+    return 0;
+}
+int CaseCheck(toado& s, matrix arr[BOARD_SIZE][BOARD_SIZE], int m, int Case,int XO) { 
+    int x = (s.y - 8) / 2;
+    int y = (s.x - 13) / 4;
+    if (Case == 1) {
+        for (int i = 0; i <= m; i++) {
+            if (XO == 1)
+                if (arr[x - i][y].z == 0)
+                    break;
+            if (XO == 0)
+                if (arr[x - i][y].z == 1)
+                    break;
+            if (arr[x - i][y].z == 7) {
+                arr[x - i][y].z = 1;
+                GotoXY(4 * y + 13, 2 * (x - i) + 8);
+                setColor(10, 15);
+                cout << "X";
+                return 1;
+            }
+        }
+        for (int i = 0; i <= m; i++) {
+            if (XO == 1)
+                if (arr[x + i][y].z == 0)
+                    break;
+            if (XO == 0)
+                if (arr[x + i][y].z == 1)
+                    break;
+            if (arr[x + i][y].z == 7) {
+                arr[x + i][y].z = 1;
+                GotoXY(4 * y + 13, 2 * (x + i) + 8);
+                setColor(10, 15);
+                cout << "X";
+                return 1;
+            }
+        }
+    }
+    else if (Case == 2) {
+        for (int i = 0; i <= m; i++) {
+            if (XO == 1)
+                if (arr[x][y - i].z == 0)
+                    break;
+            if (XO == 0)
+                if (arr[x][y - i].z == 1)
+                    break;
+            if (arr[x][y - i].z == 7) {
+                arr[x][y - i].z = 1;
+                GotoXY(4 * (y - i) + 13, 2 * x + 8);
+                setColor(10, 15);
+                cout << "X";
+                return 1;
+            }
+        }
+        for (int i = 0; i <= m; i++) {
+            if (XO == 1)
+                if (arr[x][y + i].z == 0)
+                    break;
+            if (XO == 0)
+                if (arr[x][y + i].z == 1)
+                    break;
+            if (arr[x][y + i].z == 7) {
+                arr[x][y + i].z = 1;
+                GotoXY(4 * (y + i) + 13, 2 * x + 8);
+                setColor(10, 15);
+                cout << "X";
+                return 1;
+            }
+        }
+    }
+    else if (Case == 3) {
+        for (int i = 0; i <= m; i++) {
+            if (XO == 1)
+                if (arr[x - i][y - i].z == 0)
+                    break;
+            if (XO == 0)
+                if (arr[x - i][y - i].z == 1)
+                    break;
+            if (arr[x - i][y - i].z == 7) {
+                arr[x - i][y - i].z = 1;
+                GotoXY(4 * (y - i) + 13, 2 * (x - i) + 8);
+                setColor(10, 15);
+                cout << "X";
+                return 1;
+            }
+        }
+        for (int i = 0; i <= m; i++) {
+            if (XO == 1)
+                if (arr[x + i][y + i].z == 0)
+                    break;
+            if (XO == 0)
+                if (arr[x + i][y + i].z == 1)
+                    break;
+            if (arr[x + i][y + i].z == 7) {
+                arr[x + i][y + i].z = 1;
+                GotoXY(4 * (y + i) + 13, 2 * (x + i) + 8);
+                setColor(10, 15);
+                cout << "X";
+                return 1;
+            }
+        }
+    }
+    else if (Case == 4) {
+        for (int i = 0; i <= m; i++) {
+            if (XO == 1)
+                if (arr[x + i][y - i].z == 0)
+                    break;
+            if (XO == 0)
+                if (arr[x + i][y - i].z == 1)
+                    break;
+            if (arr[x + i][y - i].z == 7) {
+                arr[x + i][y - i].z = 1;
+                GotoXY(4 * (y - i) + 13, 2 * (x + i) + 8);
+                setColor(10, 15);
+                cout << "X";
+                return 1;
+            }
+        }
+        for (int i = 0; i <= m; i++) {
+            if (XO == 1)
+                if (arr[x - i][y + i].z == 0)
+                    break;
+            if (XO == 0)
+                if (arr[x - i][y + i].z == 1)
+                    break;
+            if (arr[x - i][y + i].z == 7) {
+                arr[x - i][y + i].z = 1;
+                GotoXY(4 * (y + i) + 13, 2 * (x - i) + 8);
+                setColor(10, 15);
+                cout << "X";
+                return 1;
+            }
+        }
+    }
+    return -1;  
+}
+toado ViTriTotNhat(matrix arr[BOARD_SIZE][BOARD_SIZE], int XO) {
+    toado s;
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++)
+            if (arr[i][j].z == XO) {
+                s = { arr[i][j].x,arr[i][j].y };
+                int Case4x = CheckDuong4X(arr, s, XO);
+                int Case3x = CheckDuong3X(arr, s, XO);
+                if (Case4x != 0)
+                    return s;
+                else if (Case3x != 0)
+                    return s;
+                else if (XO == 1) {
+                    int Case2x = CheckDuong2X(arr, s);
+                    if (Case2x != 0)
+                        return s;
+                }
+            }
+    }
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++)
+            if (arr[i][j].z == XO) {
+                s = { arr[i][j].x,arr[i][j].y };
+                return s;
+            }
+    }
+}
+int AI(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
+    //Check doi thu quan O 
+    int x = (s.y - 8) / 2;
+    int y = (s.x - 13) / 4;
+    toado temp = ViTriTotNhat(arr, 0);
+    int Case4x = CheckDuong4X(arr, temp, 0);
+    if (Case4x != 0) {
+        int th1 = CaseCheck(temp, arr, 4, Case4x,0);
+        if (th1 == 1)
+            return 1;
+    }
+    Case4x = 0;
+    Case4x = CheckDuong4X(arr, s, 1);
+    if (Case4x != 0) {
+        int th1 = CaseCheck(s, arr, 4, Case4x, 1);
+        if (th1 == 1)
+            return 1;
+    }
+    int Case3x = CheckDuong3X(arr, temp, 0);
+    if (Case3x != 0) {
+        int th2 = CaseCheck(temp, arr, 3, Case3x,0);
+        if (th2 == 1)
+            return 1;
+    }
+    Case3x = CheckDuong3X(arr, temp, 1);
+    int Case2x = CheckDuong2X(arr, s);
+    if (Case3x != 0) {
+        int th2 = CaseCheck(s, arr, 3, Case3x,1);
+        if (th2 == 1)
+            return 1;
+    }
+    else if (Case2x != 0) {
+        int th3 = CaseCheck(s, arr, 2, Case2x,1);
+        if (th3 == 1)
+            return 1;
+    }
+    // 1 X 
+    if (arr[x + 1][y].z == 7) {
+        arr[x + 1][y].z = 1;
+        GotoXY(4 * y + 13, 2 * (x + 1) + 8);
+        setColor(10, 15);
+        cout << "X";
+        return 1;
+    }
+    else if (arr[x - 1][y].z == 7) {
+        arr[x - 1][y].z = 1;
+        GotoXY(4 * y + 13, 2 * (x - 1) + 8);
+        setColor(10, 15);
+        cout << "X";
+        return 1;
+    }
+    else if (arr[x + 1][y + 1].z == 7) {
+        arr[x + 1][y + 1].z = 1;
+        GotoXY(4 * (y + 1) + 13, 2 * (x + 1) + 8);
+        setColor(10, 15);
+        cout << "X";
+        return 1;
+    }
+    else if (arr[x - 1][y - 1].z == 7) {
+        arr[x - 1][y - 1].z = 1;
+        GotoXY(4 * (y - 1) + 13, 2 * (x - 1) + 8);
+        setColor(10, 15);
+        cout << "X";
+        return 1;
+    }
+    else if (arr[x - 1][y + 1].z == 7) {
+        arr[x - 1][y + 1].z = 1;
+        GotoXY(4 * (y + 1) + 13, 2 * (x - 1) + 8);
+        setColor(10, 15);
+        cout << "X";
+        return 1;
+    }
+    else if (arr[x + 1][y - 1].z == 7) {
+        arr[x + 1][y - 1].z = 1;
+        GotoXY(4 * (y - 1) + 13, 2 * (x + 1) + 8);
+        setColor(10, 15);
+        cout << "X";
+        return 1;
+    }
+    else if (arr[x][y - 1].z == 7) {
+        arr[x][y - 1].z = 1;
+        GotoXY(4 * (y - 1) + 13, 2 * x + 8);
+        setColor(10, 15);
+        cout << "X";
+        return 1;
+    }
+    else if (arr[x][y + 1].z == 7) {
+        arr[x][y + 1].z = 1;
+        GotoXY(4 * (y + 1) + 13, 2 * x + 8);
+        setColor(10, 15);
+        cout << "X";
+        return 1;
+    }
+    return -1;
+}
+int PvE_print_X_0(matrix arr[BOARD_SIZE][BOARD_SIZE], toado s, int& turn, int& countO){
+    GotoXY(s.x, s.y);
+    int x = (s.y - 8) / 2;
+    int y = (s.x - 13) / 4;
+    if ((turn == 0) && (arr[x][y].z == 7) && (arr[x][y].z != 1)) {
+        arr[x][y].z = 0;
+        setColor(12, 15);
+        cout << "O";
+        PlaySound(L"Turn", NULL, SND_ASYNC);
+        countO += 1;
+        return 0;
+    }
+}
+void PvE(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s) {
+    int d = 0, turn = 0, countX = 1, countO = 0;
+    GotoXY(s.x, s.y);
+    setColor(10, 15);
+    cout << "X";
+    int x = (s.y - 8) / 2;
+    int y = (s.x - 13) / 4;
+    arr[x][y].z = 1;
+    while (1)
+    {
+        ShowNumberTurn(countX, countO, turn);
+        if (turn == 0) {
+            int command = CommandControl(s);
+            if (command == 0) {
+                continue;
+            }
+            else if (command == 1)
+            {
+                d = PvE_print_X_0(arr, s, turn, countO);
+                if (ConditionPause(arr, s, 0) == 1) {
+                    print_Win(arr, s, turn);
+                    PlaySound(L"Win", NULL, SND_ASYNC);
+                    ShowNumberTurn(countX, countO, turn);
+                    HideCursor();
+                    break;
+                }
+            }
+            if (d == 0)
+                turn = 1;
+            continue;
+        }
+        else if (turn == 1) {
+            int kq = 0;
+            toado temp = ViTriTotNhat(arr,1);
+            int x = AI(arr, temp);
+            if (x == 1) {
+                countX += 1;
+                kq = ProcessFinish(arr, temp, 1);
+                if (kq == 1)
+                {
+                    print_Win(arr, temp, turn);
+                    PlaySound(L"Win", NULL, SND_ASYNC);
+                    ShowNumberTurn(countX, countO, turn);
+                    HideCursor();
+                    break;
+                }
+            }
+            turn = 0;
+        }
+    }
+}
 //ham goi cho menu PvP
 void PlayGame_PvP() {
     matrix arr[BOARD_SIZE][BOARD_SIZE];
@@ -147,4 +530,11 @@ void PlayGame_PvP() {
     DrawBoard();
     resetData(arr);
     PvP(arr, s);
+}
+void PlayGame_PvE() {
+    matrix arr[BOARD_SIZE][BOARD_SIZE];
+    toado s = { 33,22 };
+    DrawBoard();
+    resetData(arr);
+    PvE(arr, s);
 }
