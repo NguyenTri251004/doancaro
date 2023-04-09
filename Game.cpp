@@ -345,6 +345,30 @@ toado ViTriTotNhat(matrix arr[BOARD_SIZE][BOARD_SIZE], int XO) {
                 s = { arr[i][j].x,arr[i][j].y };
                 int Case4x = CheckDuong4X(arr, s, XO);
                 int Case3x = CheckDuong3X(arr, s, XO);
+                if (XO == 0) {
+                    int x = (s.y - 8) / 2;
+                    int y = (s.x - 13) / 4;
+                    for (int i = 0; i < 4; i++)
+                        if (arr[x - 3 + i][y].z == XO && arr[x - 2 + i][y].z == XO && arr[x - 1 + i][y].z == XO && arr[x + i][y].z == XO) {
+                            if (arr[x - 4 + i][y].z == 1 && arr[x + 2 * i][y].z == 1)
+                                continue;
+                        }
+                    for (int i = 0; i < 4; i++)
+                        if (arr[x][y - 3 + i].z == XO && arr[x][y - 2 + i].z == XO && arr[x][y - 1 + i].z == XO && arr[x][y + i].z == XO) {
+                            if (arr[x][y - 4 + i].z == 1 && arr[x][y + 2 * i].z == 1)
+                                continue;
+                        }
+                    for (int i = 0; i < 4; i++)
+                        if ((arr[x - 3 + i][y - 3 + i].z == XO) && (arr[x - 2 + i][y - 2 + i].z == XO) && (arr[x - 1 + i][y - 1 + i].z == XO) && (arr[x + i][y + i].z == XO)) {
+                            if (arr[x - 4 + i][y - 4 + i].z == 1 && arr[x + 2 * i][y + 2 * i].z == 1)
+                                continue;
+                        }
+                    for (int i = 0; i < 4; i++)
+                        if ((arr[x + 3 - i][y - 3 + i].z == XO) && (arr[x + 2 - i][y - 2 + i].z == XO) && (arr[x + 1 - i][y - 1 + i].z == XO) && (arr[x - i][y + i].z == XO)) {
+                            if (arr[x + 4 - i][y - 4 + i].z == 1 && arr[x - 2 * i][y + 2 * i].z == 1)
+                                continue;
+                        }
+                }
                 if (Case4x != 0)
                     return s;
                 else if (Case3x != 0)
