@@ -8,3 +8,4 @@ struct matrix {
 };
 void resetData(matrix arr[BOARD_SIZE][BOARD_SIZE]);
 void PlayGame_PvP();
+void PlayGame_PvE();
