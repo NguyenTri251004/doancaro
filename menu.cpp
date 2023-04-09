@@ -154,7 +154,8 @@ void SelectMode(toado& mode, int choice) {
         //ask continue = while && luu file
     }
     else if (y == 27) {
-        //pve
+        system("cls");
+        PlayGame_PvE();
     }
     else if (y == 29) {
         system("cls");
