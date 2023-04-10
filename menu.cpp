@@ -15,15 +15,15 @@ void Help(int& choice)
     {
         GotoXY(18 + i, 21); printf(" ");
     }
-    GotoXY(94, 25);  setColor(3, 15); printf("--------HELP--------");
+     GotoXY(94, 25);  setColor(3, 15); printf("--------HELP--------");
     GotoXY(99, 28); setColor(10, 15); printf("DIEU KHIEN");
     setColor(4, 15);
-    GotoXY(86, 30);  printf("-NGUOI CHOI 1-");    GotoXY(110, 30);  printf("-NGUOI CHOI 2-"); setColor(1, 15);
-    GotoXY(86, 32); printf("A: Sang Trai");     GotoXY(110, 32); printf("4: Sang Trai");
-    GotoXY(86, 33); printf("D: Sang Phai");     GotoXY(110, 33); printf("6: Sang Phai");
-    GotoXY(86, 34); printf("S: Len Tren");      GotoXY(110, 34); printf("8: Len Tren");
-    GotoXY(86, 35); printf("W: Xuong Duoi");    GotoXY(110, 35); printf("2: Xuong Duoi");
-    GotoXY(86, 36); printf("Enter: OK");            GotoXY(110, 36); printf("5: OK");
+    GotoXY(86, 30);  printf("Huong dan :");    GotoXY(110, 30);  printf("Thong tin them:"); setColor(1, 15);
+    GotoXY(86, 32); printf("A: Sang Trai");     GotoXY(110, 32); printf("1. Ban co 18x20");
+    GotoXY(86, 33); printf("D: Sang Phai");     GotoXY(110, 33); printf("2. Luat choi:");
+    GotoXY(86, 34); printf("S: Len Tren");      GotoXY(110, 34); printf("- Danh du 5 quan co lien tiep de thang");
+    GotoXY(86, 35); printf("W: Xuong Duoi");    GotoXY(110, 35); printf("Luat tu do(khong ap dung luat chan hai dau)");
+    GotoXY(86, 36); printf("SPACE: Danh Co");          
     GotoXY(93, 40); setColor(47, 15); printf("  Press Enter to EXIT  ");
     //GotoXY(41, 40);
     setColor(0, 15);
@@ -49,13 +49,14 @@ void About(int& choice)
     }
     GotoXY(94, 25);  setColor(3, 15);  printf("--------ABOUT--------");
     GotoXY(91, 28); setColor(12, 15); printf("DO AN CUOI KI I - GAME CO CARO");
-    GotoXY(95, 29); setColor(12, 15); printf("----- NHOM 12 -----");      GotoXY(34, 17);
+    GotoXY(91, 29); setColor(12, 15); printf("GV HUONG DAN:       Thay Truong Toan Thinh");
+    GotoXY(95, 30); setColor(12, 15); printf("----- NHOM 12 -----");      GotoXY(34, 17);
 
-    GotoXY(87, 31); setColor(1, 15); printf("- Ho va ten -");          GotoXY(115, 31); setColor(1, 15); printf("- MSSV -");
-    GotoXY(87, 32); setColor(11, 15); printf("Pham Van Minh");          GotoXY(115, 32); setColor(11, 15); printf("22127272");
-    GotoXY(87, 33); setColor(11, 15); printf("Truong Nhat Huy");        GotoXY(115, 33); setColor(11, 15); printf("22127168");
-    GotoXY(87, 34); setColor(11, 15); printf("Nguyen The Quan");        GotoXY(115, 34); setColor(11, 15); printf("22127341");
-    GotoXY(87, 35); setColor(11, 15); printf("Nguyen Phuoc Minh Tri");  GotoXY(115, 35); setColor(11, 15); printf("22127424");
+    GotoXY(87, 32); setColor(1, 15); printf("- Ho va ten -");          GotoXY(115, 31); setColor(1, 15); printf("- MSSV -");
+    GotoXY(87, 33); setColor(11, 15); printf("Pham Van Minh");          GotoXY(115, 32); setColor(11, 15); printf("22127272");
+    GotoXY(87, 34); setColor(11, 15); printf("Truong Nhat Huy");        GotoXY(115, 33); setColor(11, 15); printf("22127168");
+    GotoXY(87, 35); setColor(11, 15); printf("Nguyen The Quan");        GotoXY(115, 34); setColor(11, 15); printf("22127341");
+    GotoXY(87, 36); setColor(11, 15); printf("Nguyen Phuoc Minh Tri");  GotoXY(115, 35); setColor(11, 15); printf("22127424");
 
     GotoXY(93, 40); setColor(47, 15); printf("  Press Enter to EXIT  ");
     //GotoXY(50, 40); //chua hieu dong nay
