@@ -112,38 +112,43 @@ void DrawBoard() { //vẽ bảng
     Custom();
 }
 //Hien thi luot danh
-void ShowNumberTurn(int countX, int countO, int& turn) {
+void ShowNumberTurn(int countX, int countO, int turn,int&scoreX,int&scoreO) {
     HideCursor();
     GotoXY(151, 39); setColor(5, 15); printf("Luot Choi");
-    if (turn == 1) {
-        setColor(1, 15);
-        GotoXY(151, 40); cout << "##     ## ";
-        GotoXY(151, 41); cout << " ##   ##  ";
-        GotoXY(151, 42); cout << "  ## ##   ";
-        GotoXY(151, 43); cout << "   ###    ";
-        GotoXY(151, 44); cout << "  ## ##   ";
-        GotoXY(151, 45); cout << " ##   ##  ";
-        GotoXY(151, 46); cout << "##     ##";
+    if (turn != -1) {
+        if (turn == 1) {
+            setColor(1, 15);
+            GotoXY(151, 40); cout << "##     ## ";
+            GotoXY(151, 41); cout << " ##   ##  ";
+            GotoXY(151, 42); cout << "  ## ##   ";
+            GotoXY(151, 43); cout << "   ###    ";
+            GotoXY(151, 44); cout << "  ## ##   ";
+            GotoXY(151, 45); cout << " ##   ##  ";
+            GotoXY(151, 46); cout << "##     ##";
+        }
+        else if (turn == 0) {
+            setColor(12, 15);
+            GotoXY(151, 40); printf(" #######   ");
+            GotoXY(151, 41); printf("##     ## ");
+            GotoXY(151, 42); printf("##     ## ");
+            GotoXY(151, 43); printf("##     ## ");
+            GotoXY(151, 44); printf("##     ##  ");
+            GotoXY(151, 45); printf("##     ## ");
+            GotoXY(151, 46); printf(" ####### ");
+        }
     }
-    else if (turn == 0) {
-        setColor(12, 15);
-        GotoXY(151, 40); printf(" #######   ");
-        GotoXY(151, 41); printf("##     ## ");
-        GotoXY(151, 42); printf("##     ## ");
-        GotoXY(151, 43); printf("##     ## ");
-        GotoXY(151, 44); printf("##     ##  ");
-        GotoXY(151, 45); printf("##     ## ");
-        GotoXY(151, 46); printf(" ####### ");
-    }
-
     GotoXY(121, 13); setColor(1, 15); printf("Player #1");
-    GotoXY(116, 16); printf("So quan da danh - ");
+    GotoXY(116, 16); printf("Troops ---------- ");
+    GotoXY(116, 18); printf("Score  ---------- ");
     GotoXY(181, 13); setColor(12, 15); printf("Player #2");
-    GotoXY(176, 16); printf("So quan da danh - ");
+    GotoXY(176, 16); printf("Troops ---------- ");
+    GotoXY(176, 18); printf("Score  ---------- ");
     setColor(1, 15);
     GotoXY(134, 16); cout << countX;
+    GotoXY(134, 18); cout << scoreX;
     setColor(12, 15);
     GotoXY(194, 16); cout << countO;
+    GotoXY(194, 18); cout << scoreO;
     ShowConsoleCursor();
 }
 void Khung()
@@ -197,14 +202,6 @@ void Khung()
 }
 void Custom()
 {
-    /*setColor(3, 15);
-    GotoXY(120, 55); printf("  $$$$$$      $$$$$$$         $$$$$$       $$$$$     $$$$$$$$$     $$$$$$$\n"); Sleep(40);
-    GotoXY(120, 56); printf("$$$    $$$  $$$     $$$     $$$    $$$    $$$ $$$    $$$    $$$  $$$     $$$\n"); Sleep(40); setColor(3, 15);
-    GotoXY(120, 57); printf("$$$         $$$     $$$     $$$          $$$   $$$   $$$   $$$   $$$     $$$\n"); Sleep(40);
-    GotoXY(120, 58); printf("$$$         $$$     $$$     $$$         $$$$$$$$$$$  $$$$$$$$    $$$     $$$\n"); Sleep(40); setColor(4, 15);
-    GotoXY(120, 59); printf("$$$    $$$  $$$     $$$     $$$    $$$  $$$     $$$  $$$   $$$   $$$     $$$\n"); Sleep(40);
-    GotoXY(120, 60); printf("  $$$$$$      $$$$$$$         $$$$$$    $$$     $$$  $$$    $$$    $$$$$$$  \n");*/
-
     //ve X
     setColor(1, 15);
     GotoXY(121, 5); printf("##     ## ");
@@ -262,7 +259,7 @@ void Custom()
     GotoXY(225-19, 20); printf("%c", 188);
 
     //khung turn
-    for (int i = 39; i <= 47; i++)
+    for (int i = 39-14; i <= 47-14; i++)
     {
         setColor(5, 15);
         GotoXY(134, i); printf("%c", 186);
@@ -272,16 +269,34 @@ void Custom()
     for (int i = 134; i <= 181-4; i++)
     {
         setColor(5, 15);
+        GotoXY(i, 39-14); printf("%c", 205);
+        GotoXY(i, 47-14); printf("%c", 205);
+    }
+    GotoXY(138-4, 39-14); printf("%c", 201);
+    GotoXY(138-4, 47-14); printf("%c", 200);
+    GotoXY(181-4, 39-14); printf("%c", 187);
+    GotoXY(181-4, 47-14); printf("%c", 188);
+    setColor(9, 15);
+    GotoXY(148, 28); cout << "W,S,A,D : Move";
+    GotoXY(145, 30); cout << "Space : Placing X or O";
+    //Khung hien thi nut 
+    for (int i = 39; i <= 47; i++)
+    {
+        setColor(3, 15);
+        GotoXY(134, i); printf("%c", 186);
+        GotoXY(184 - 7, i); printf("%c", 186);
+    }
+
+    for (int i = 134; i <= 181 - 4; i++)
+    {
+        setColor(3, 15);
         GotoXY(i, 39); printf("%c", 205);
         GotoXY(i, 47); printf("%c", 205);
     }
-    GotoXY(138-4, 39); printf("%c", 201);
-    GotoXY(138-4, 47); printf("%c", 200);
-    GotoXY(181-4, 39); printf("%c", 187);
-    GotoXY(181-4, 47); printf("%c", 188);
-
-
-    //khung huong dan choi
+    GotoXY(138 - 4, 39); printf("%c", 201);
+    GotoXY(138 - 4, 47); printf("%c", 200);
+    GotoXY(181 - 4, 39); printf("%c", 187);
+    GotoXY(181 - 4, 47); printf("%c", 188);
 }
 void printOptions(int x) {
     setColor(3, 15);
@@ -313,4 +328,13 @@ void printOptions(int x) {
         putchar(205);
     }
     putchar(188);
+}
+void AskContinue() {
+    setColor(9, 15);
+    GotoXY(96, 29);
+    cout << "Press T to continue play";
+    GotoXY(96, 31);
+    cout << "Press L to save game";
+    GotoXY(96, 33);
+    cout << "Press Enter to exit";
 }
