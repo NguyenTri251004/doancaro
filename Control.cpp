@@ -36,7 +36,7 @@ int CommandControl(toado& s) {
 int ControlMenu(toado& menu) {
     GotoXY(menu.x, menu.y);
     int command = _getch();
-    if ((command == 's' || command == 'S') && menu.y < 31) {
+    if ((command == 's' || command == 'S') && menu.y < 33) {
         GotoXY(menu.x, menu.y + 1);
         menu.y += 2;
         return 1;
@@ -64,4 +64,38 @@ int ChooseMode(toado& mode) {
     }
     if (command == 13)
         return 0;
+}
+int ChooseAskContinue(toado& s) {
+    GotoXY(s.x, s.y);
+    int command = _getch();
+    if ((command == 's' || command == 'S') && s.y < 27) {
+        GotoXY(s.x, s.y + 1);
+        s.y += 2;
+        return 1;
+    }
+    else if ((command == 'w' || command == 'W') && s.y > 25) {
+        GotoXY(s.x, s.y - 1);
+        s.y -= 2;
+        return 1;
+    }
+    if (command == 13)
+        return 0;
+}
+int ControlLoadGame(toado& loadgame) {
+    GotoXY(loadgame.x, loadgame.y);
+    int command = _getch();
+    if ((command == 's' || command == 'S') && loadgame.y < 33) {
+        GotoXY(loadgame.x, loadgame.y + 1);
+        loadgame.y += 2;
+        return 1;
+    }
+    else if ((command == 'w' || command == 'W') && loadgame.y > 25) {
+        GotoXY(loadgame.x, loadgame.y - 1);
+        loadgame.y -= 2;
+        return 1;
+    }
+    if (command == 13)
+        return 0;
+    if (command == 'T' || command == 't')
+        return -1;
 }
