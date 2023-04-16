@@ -3,6 +3,7 @@
 #include "control.h"
 #include "Windows.h"
 #include <cstring>
+
 const int MAX_NAMES = 5;
 using namespace std;
 //khoi tao du lieu
@@ -24,21 +25,57 @@ bool checkFullBoard(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
     return true;
 }
 //check win/lose/draw
+
 int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado a, int s)
 {
     int x = (a.y - 8) / 2;
     int y = (a.x - 13) / 4;
-
+    char text[3];
+    if (s == 1)
+        strcpy(text, "X\n");
+    else if (s == 0)
+        strcpy(text, "O\n");
+    int count = 0;
     // Check for winning conditions in the horizontal direction
     for (int i = max(x - 4, 0); i <= min(x, BOARD_SIZE - 5); i++) {
         if (arr[i][y].z == s && arr[i + 1][y].z == s && arr[i + 2][y].z == s && arr[i + 3][y].z == s && arr[i + 4][y].z == s) {
+            while (count<5) {
+
+                for (int j = 0; j < 5; j++) {
+                    setColor(5, 15);
+                    GotoXY(arr[i + j][y].x, arr[i + j][y].y); cout << text;
+                }
+                fflush(stdout);
+                Sleep(300);
+                for (int j = 0; j < 5; j++) {
+                    setColor(9, 15);
+                    GotoXY(arr[i + j][y].x, arr[i + j][y].y); cout << text;
+                }
+                fflush(stdout);
+                Sleep(300);
+                count += 1;
+            }
             return 1;
         }
     }
-
     // Check for winning conditions in the vertical direction
     for (int i = max(y - 4, 0); i <= min(y, BOARD_SIZE - 5); i++) {
         if (arr[x][i].z == s && arr[x][i + 1].z == s && arr[x][i + 2].z == s && arr[x][i + 3].z == s && arr[x][i + 4].z == s) {
+            while (count < 5) {
+                for (int j = 0; j < 5; j++) {
+                    setColor(5, 15);
+                    GotoXY(arr[x][i+j].x, arr[x][i+j].y); cout << text;
+                }
+                fflush(stdout);
+                Sleep(300);
+                for (int j = 0; j < 5; j++) {
+                    setColor(9, 15);
+                    GotoXY(arr[x][i+j].x, arr[x][i+j].y); cout << text;
+                }
+                fflush(stdout);
+                Sleep(300);
+                count += 1;
+            }
             return 1;
         }
     }
@@ -46,6 +83,21 @@ int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado a, int s)
     // Check for winning conditions in the diagonal direction (top-left to bottom-right)
     for (int i = max(x - 4, 0), j = max(y - 4, 0); i <= min(x, BOARD_SIZE - 5) && j <= min(y, BOARD_SIZE - 5); i++, j++) {
         if (arr[i][j].z == s && arr[i + 1][j + 1].z == s && arr[i + 2][j + 2].z == s && arr[i + 3][j + 3].z == s && arr[i + 4][j + 4].z == s) {
+            while (count < 5) {
+                for (int z = 0; z < 5; z++) {
+                    setColor(5, 15);
+                    GotoXY(arr[i+z][j + z].x, arr[i + z][j + z].y); cout << text;
+                }
+                fflush(stdout);
+                Sleep(300);
+                for (int z = 0; z < 5; z++) {
+                    setColor(9, 15);
+                    GotoXY(arr[i + z][j + z].x, arr[i + z][j + z].y); cout << text;
+                }
+                fflush(stdout);
+                Sleep(300);
+                count += 1;
+            }
             return 1;
         }
     }
@@ -53,6 +105,21 @@ int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado a, int s)
     // Check for winning conditions in the diagonal direction (bottom-left to top-right)
     for (int i = max(x - 4, 0), j = min(y + 4, BOARD_SIZE - 1); i <= min(x, BOARD_SIZE - 5) && j >= max(y, 4); i++, j--) {
         if (arr[i][j].z == s && arr[i + 1][j - 1].z == s && arr[i + 2][j - 2].z == s && arr[i + 3][j - 3].z == s && arr[i + 4][j - 4].z == s) {
+            while (count < 5) {
+                for (int z = 0; z < 5; z++) {
+                    setColor(5, 15);
+                    GotoXY(arr[i + z][j - z].x, arr[i + z][j - z].y); cout << text;
+                }
+                fflush(stdout);
+                Sleep(300);
+                for (int z = 0; z < 5; z++) {
+                    setColor(9, 15);
+                    GotoXY(arr[i + z][j - z].x, arr[i + z][j - z].y); cout << text;
+                }
+                fflush(stdout);
+                Sleep(300);
+                count += 1;
+            }
             return 1;
         }
     }
@@ -64,9 +131,9 @@ int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado a, int s)
     return -1;
 }
 //in ai win/draw
-void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn,int& scoreX,int&scoreO) {
-    int check = ProcessFinish(arr, td, turn);
-    if ((check == 1) && (turn == 1)) {
+void print_Win(int turn,int& scoreX,int&scoreO) {
+    if (turn == 1) {
+        setColor(10, 15);
         GotoXY(91, 19); cout << "##     ##    ##      ## #### ##    ## ";
         GotoXY(91, 20); cout << " ##   ##     ##  ##  ##  ##  ###   ## ";
         GotoXY(91, 21); cout << "  ## ##      ##  ##  ##  ##  ####  ## ";
@@ -76,7 +143,8 @@ void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn,int& score
         GotoXY(91, 25); cout << "##     ##     ###  ###  #### ##    ## ";
         scoreX += 1;
     }
-    else if ((check == 1) && (turn == 0)) {
+    else if (turn == 0) {
+        setColor(12, 15);
         GotoXY(91, 19); cout << " #######     ##      ## #### ##    ## ";
         GotoXY(91, 20); cout << "##     ##    ##  ##  ##  ##  ###   ## ";
         GotoXY(91, 21); cout << "##     ##    ##  ##  ##  ##  ####  ## ";
@@ -86,7 +154,7 @@ void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn,int& score
         GotoXY(91, 25); cout << " #######      ###  ###  #### ##    ## ";
         scoreO += 1;
     }
-    else if (check == 0) {
+    else  {
         GotoXY(91, 19); cout << "########  ########     ###    ##      ## ";
         GotoXY(91, 20); cout << "##     ## ##     ##   ## ##   ##  ##  ## ";
         GotoXY(91, 21); cout << "##     ## ##     ##  ##   ##  ##  ##  ## ";
@@ -97,13 +165,16 @@ void print_Win(matrix arr[BOARD_SIZE][BOARD_SIZE], toado td, int turn,int& score
     }
 }
 //Pause khi win/draw
+
 int ConditionPause(matrix arr[BOARD_SIZE][BOARD_SIZE],int turn) {
     for (int i = 0; i < BOARD_SIZE; i++)
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (arr[i][j].z != 7) {
                 toado td = { arr[i][j].x,arr[i][j].y };
-                if (ProcessFinish(arr, td, turn) == 1)
+                if (ProcessFinish(arr, td, turn) == 1){
+                    Sleep(1200);
                     return 1;
+                }
             }
         }
     return 0;
@@ -145,7 +216,7 @@ void PvP(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s,int& scoreX,int&scoreO) {
             int x = PvP_print_X_0(arr, s, turn, countX, countO);
             if (ConditionPause(arr, turn) == 1) {
                 system("cls");
-                print_Win(arr, s, turn,scoreX,scoreO);
+                print_Win(turn,scoreX,scoreO);
                 PlaySound(L"Win", NULL, SND_ASYNC);
                 HideCursor();
                 break;
@@ -533,7 +604,7 @@ void PvE(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s,int &scoreX,int&scoreO) {
                 d = PvE_print_X_0(arr, s, turn, countO);
                 if (ConditionPause(arr, 0) == 1) {
                     system("cls");
-                    print_Win(arr, s, turn,scoreX,scoreO);
+                    print_Win(turn,scoreX,scoreO);
                     PlaySound(L"Win", NULL, SND_ASYNC);
                     HideCursor();
                     break;
@@ -553,7 +624,7 @@ void PvE(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s,int &scoreX,int&scoreO) {
                 if (kq == 1)
                 {
                     system("cls");
-                    print_Win(arr, temp, turn,scoreX,scoreO);
+                    print_Win(turn,scoreX,scoreO);
                     PlaySound(L"Win", NULL, SND_ASYNC);
                     HideCursor();
                     break;
