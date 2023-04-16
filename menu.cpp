@@ -70,6 +70,16 @@ void About(int& choice)
     fflush(stdin);
     Menu(choice);
 }
+void Exit()
+{
+    GotoXY(70, 19); printf("######## ##     ##    ###    ##    ## ##    ##    ##    ##  #######  ##     ## ");
+    GotoXY(70, 20); printf("   ##    ##     ##   ## ##   ###   ## ##   ##      ##  ##  ##     ## ##     ## ");
+    GotoXY(70, 21); printf("   ##    ##     ##  ##   ##  ####  ## ##  ##        ####   ##     ## ##     ## ");
+    GotoXY(70, 22); printf("   ##    ######### ##     ## ## ## ## #####          ##    ##     ## ##     ## ");
+    GotoXY(70, 23); printf("   ##    ##     ## ######### ##  #### ##  ##         ##    ##     ## ##     ## ");
+    GotoXY(70, 24); printf("   ##    ##     ## ##     ## ##   ### ##   ##        ##    ##     ## ##     ## ");
+    GotoXY(70, 25); printf("   ##    ##     ## ##     ## ##    ## ##    ##       ##     #######   #######  ");
+}
 void HienThiLuaChonMenu(toado s) {
     char a[10] = "PLAY GAME";
     char b[10] = "LOAD GAME";
@@ -301,16 +311,6 @@ void LoadGameMenu(int& choice) {
         Menu(choice);
     }
 }
-void Exit()
-{
-    GotoXY(91,19); printf("######## ##     ##    ###    ##    ## ##    ##    ##    ##  #######  ##     ## ");
-    GotoXY(91, 20);printf("   ##    ##     ##   ## ##   ###   ## ##   ##      ##  ##  ##     ## ##     ## ");
-    GotoXY(91, 21);printf("   ##    ##     ##  ##   ##  ####  ## ##  ##        ####   ##     ## ##     ## ");
-    GotoXY(91, 22);printf("   ##    ######### ##     ## ## ## ## #####          ##    ##     ## ##     ## ");
-    GotoXY(91, 23);printf("   ##    ##     ## ######### ##  #### ##  ##         ##    ##     ## ##     ## ");
-    GotoXY(91, 24);printf("   ##    ##     ## ##     ## ##   ### ##   ##        ##    ##     ## ##     ## ");
-    GotoXY(91, 25);printf("   ##    ##     ## ##     ## ##    ## ##    ##       ##     #######   #######  ");
-}
 void Menu(int& choice) {
     Khung();
     HideCursor();
@@ -339,6 +339,6 @@ void Menu(int& choice) {
         Help(choice);
     else if (y == 31)
         About(choice);
-    else if (y==33)
-        system("cls");
+    else if (y == 33)
+        Exit();
 }
