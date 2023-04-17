@@ -674,7 +674,7 @@ void LoadGameBoard(matrix arr[BOARD_SIZE][BOARD_SIZE]) {
                 GotoXY(arr[i][j].x, arr[i][j].y);
                 setColor(12, 15);
                 cout << "O";
-                countO += 0;
+                countO += 1;
             }
     ShowNumberTurn(countX, countO, -1, scoreX, scoreO);
 }
