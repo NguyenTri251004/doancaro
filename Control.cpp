@@ -65,22 +65,6 @@ int ChooseMode(toado& mode) {
     if (command == 13)
         return 0;
 }
-int ChooseAskContinue(toado& s) {
-    GotoXY(s.x, s.y);
-    int command = _getch();
-    if ((command == 's' || command == 'S') && s.y < 27) {
-        GotoXY(s.x, s.y + 1);
-        s.y += 2;
-        return 1;
-    }
-    else if ((command == 'w' || command == 'W') && s.y > 25) {
-        GotoXY(s.x, s.y - 1);
-        s.y -= 2;
-        return 1;
-    }
-    if (command == 13)
-        return 0;
-}
 int ControlLoadGame(toado& loadgame) {
     GotoXY(loadgame.x, loadgame.y);
     int command = _getch();
