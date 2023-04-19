@@ -123,11 +123,9 @@ int ProcessFinish(matrix arr[BOARD_SIZE][BOARD_SIZE], toado a, int s)
             return 1;
         }
     }
-
     if (checkFullBoard(arr) == true) {
         return 0;
     }
-
     return -1;
 }
 //in ai win/draw
@@ -142,6 +140,7 @@ void print_Win(int turn,int& scoreX,int&scoreO) {
         GotoXY(91, 24); cout << " ##   ##     ##  ##  ##  ##  ##   ### ";
         GotoXY(91, 25); cout << "##     ##     ###  ###  #### ##    ## ";
         scoreX += 1;
+        return;
     }
     else if (turn == 0) {
         setColor(12, 15);
@@ -153,8 +152,8 @@ void print_Win(int turn,int& scoreX,int&scoreO) {
         GotoXY(91, 24); cout << "##     ##    ##  ##  ##  ##  ##   ### ";
         GotoXY(91, 25); cout << " #######      ###  ###  #### ##    ## ";
         scoreO += 1;
-    }
-    else  {
+        return;
+    }else if (turn==-1)
         GotoXY(91, 19); cout << "########  ########     ###    ##      ## ";
         GotoXY(91, 20); cout << "##     ## ##     ##   ## ##   ##  ##  ## ";
         GotoXY(91, 21); cout << "##     ## ##     ##  ##   ##  ##  ##  ## ";
@@ -162,7 +161,6 @@ void print_Win(int turn,int& scoreX,int&scoreO) {
         GotoXY(91, 23); cout << "##     ## ##   ##   ######### ##  ##  ## ";
         GotoXY(91, 24); cout << "##     ## ##    ##  ##     ## ##  ##  ## ";
         GotoXY(91, 25); cout << "########  ##     ## ##     ##  ###  ###  ";
-    }
 }
 //Pause khi win/draw
 
@@ -171,13 +169,17 @@ int ConditionPause(matrix arr[BOARD_SIZE][BOARD_SIZE],int turn) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (arr[i][j].z != 7) {
                 toado td = { arr[i][j].x,arr[i][j].y };
-                if (ProcessFinish(arr, td, turn) == 1){
+                if (ProcessFinish(arr, td, turn) == 1) {
                     Sleep(1200);
                     return 1;
                 }
+                else if (ProcessFinish(arr, td, turn) == 0) {
+                    Sleep(1200);
+                    return 0;
+                }
             }
         }
-    return 0;
+    return -1;
 }
 //Dung in X/O tren man hinh
 int PvP_print_X_0(matrix arr[BOARD_SIZE][BOARD_SIZE], toado s, int& turn, int& countX, int& countO) {
@@ -217,6 +219,13 @@ void PvP(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s,int& scoreX,int&scoreO) {
             if (ConditionPause(arr, turn) == 1) {
                 system("cls");
                 print_Win(turn,scoreX,scoreO);
+                PlaySound(L"Win", NULL, SND_ASYNC);
+                HideCursor();
+                break;
+            }
+            else if (ConditionPause(arr, turn) == 0) {
+                system("cls");
+                print_Win(-1, scoreX, scoreO);
                 PlaySound(L"Win", NULL, SND_ASYNC);
                 HideCursor();
                 break;
@@ -602,9 +611,16 @@ void PvE(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s,int &scoreX,int&scoreO) {
             else if (command == 1)
             {
                 d = PvE_print_X_0(arr, s, turn, countO);
-                if (ConditionPause(arr, 0) == 1) {
+                if (ConditionPause(arr, turn) == 1) {
                     system("cls");
-                    print_Win(turn,scoreX,scoreO);
+                    print_Win(turn, scoreX, scoreO);
+                    PlaySound(L"Win", NULL, SND_ASYNC);
+                    HideCursor();
+                    break;
+                }
+                else if (ConditionPause(arr, turn) == 0) {
+                    system("cls");
+                    print_Win(-1, scoreX, scoreO);
                     PlaySound(L"Win", NULL, SND_ASYNC);
                     HideCursor();
                     break;
@@ -620,11 +636,16 @@ void PvE(matrix arr[BOARD_SIZE][BOARD_SIZE], toado& s,int &scoreX,int&scoreO) {
             int x = AI(arr, temp);
             if (x == 1) {
                 countX += 1;
-                kq = ProcessFinish(arr, temp, 1);
-                if (kq == 1)
-                {
+                if (ConditionPause(arr, turn) == 1) {
                     system("cls");
-                    print_Win(turn,scoreX,scoreO);
+                    print_Win(turn, scoreX, scoreO);
+                    PlaySound(L"Win", NULL, SND_ASYNC);
+                    HideCursor();
+                    break;
+                }
+                else if (ConditionPause(arr, turn) == 0) {
+                    system("cls");
+                    print_Win(-1, scoreX, scoreO);
                     PlaySound(L"Win", NULL, SND_ASYNC);
                     HideCursor();
                     break;
